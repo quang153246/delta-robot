@@ -3,6 +3,7 @@ import wx
 from components.Button import CustomButton
 from components.Header import CustomHeader
 from components.Select import Select
+from wx.lib import statbmp
 
 class OperationTab():
     def __init__(self, parent) -> None:
