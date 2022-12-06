@@ -70,9 +70,9 @@ class OperationTab():
         status_content_layout =  wx.BoxSizer(wx.VERTICAL)
 
         #check robot
-        robot_status = CustomHeader(self.status_box, "Robot Connection: ", self.__ui_colour.black, self.__ui_colour.TEXT_HEADER_MODE).GetObject()
+        robot_status = CustomHeader(self.status_content, "Robot Connection: ", self.__ui_colour.white, self.__ui_colour.PRIMARY).GetObject()
         # Check camera
-        camera_status = CustomHeader(self.status_box, "Camera Connection: ", self.__ui_colour.black, self.__ui_colour.TEXT_HEADER_MODE).GetObject()
+        camera_status = CustomHeader(self.status_content, "Camera Connection: ", self.__ui_colour.white, self.__ui_colour.PRIMARY).GetObject()
 
         status_content_layout.Add(robot_status, 1, wx.ALIGN_CENTER, 0)
         status_content_layout.Add(camera_status,1, wx.ALIGN_CENTER, 0)
