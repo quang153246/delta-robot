@@ -1,5 +1,5 @@
 import wx
-from components.Button import CustomButton
+from components.button import CustomButton
 from colour import UIColour
 
 class Navigation():

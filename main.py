@@ -1,7 +1,7 @@
 from colour import UIColour
 import wx
-from components.Button import CustomButton
-from components.Header import CustomHeader
+from components.button import CustomButton
+from components.header import CustomHeader
 from components.Navigation import Navigation
 from tabs.Operation import OperationTab
 
