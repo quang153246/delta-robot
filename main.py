@@ -4,7 +4,6 @@ from components.Button import CustomButton
 from components.Header import CustomHeader
 from components.Navigation import Navigation
 from tabs.Operation import OperationTab
-from tabs.New import New
 
 class MainFrame():
     def __init__(self) -> None:

@@ -11,9 +11,9 @@ class Navigation():
         self.navigation_panel = wx.Panel(self.parent)
         self.navigation_panel.SetBackgroundColour(self.__ui_colour.black)
 
-        self.operation_button = CustomButton(self.navigation_panel, "Operation", self.__ui_colour.true_blue, self.__ui_colour.white).GetObject() 
+        self.operation_button = CustomButton(self.navigation_panel, "Operation", self.__ui_colour.PRIMARY, self.__ui_colour.white).GetObject() 
 
-        self.settings_button = CustomButton(self.navigation_panel, "Settings", self.__ui_colour.true_blue, self.__ui_colour.white).GetObject()
+        self.settings_button = CustomButton(self.navigation_panel, "Settings", self.__ui_colour.PRIMARY, self.__ui_colour.white).GetObject()
 
         # Create navigation logo.
         self.logo_panel = wx.Panel(self.navigation_panel)
