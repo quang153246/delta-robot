@@ -1,11 +1,11 @@
 import wx
 
 class CustomHeader():
-    def __init__(self, parent, title=None, BackColor=None, TextColor=None) -> None:
+    def __init__(self, parent, title=None, BackGround=None, TextColor=None) -> None:
         self.parent = parent
         self.panel = wx.Panel(self.parent)
 
-        self.panel.SetBackgroundColour(BackColor)
+        self.panel.SetBackgroundColour(BackGround)
 
         if TextColor != None:
             self.panel.SetForegroundColour(TextColor)
