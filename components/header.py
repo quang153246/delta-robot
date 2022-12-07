@@ -1,11 +1,13 @@
 import wx
 
 class CustomHeader():
-    def __init__(self, parent, title=None, BackGround=None, TextColor=None) -> None:
+    def __init__(self, parent, title=None, BackGround=None, TextColor=None, TextSize=None) -> None:
         self.parent = parent
         self.panel = wx.Panel(self.parent)
-
         self.panel.SetBackgroundColour(BackGround)
+
+        if TextSize == None:
+            TextSize = 14
 
         if TextColor != None:
             self.panel.SetForegroundColour(TextColor)
@@ -14,7 +16,7 @@ class CustomHeader():
             self.panel_text = wx.StaticText(self.panel)
             self.panel_text.SetLabel(title)
             self.panel_text.SetForegroundColour(TextColor)
-            self.panel_text.SetFont(wx.Font(14, wx.DECORATIVE, wx.NORMAL, wx.BOLD))
+            self.panel_text.SetFont(wx.Font(TextSize, wx.DECORATIVE, wx.NORMAL, wx.BOLD))
 
             # Layout panel.
             panel_layout_vertical = wx.BoxSizer(wx.VERTICAL)
@@ -24,7 +26,7 @@ class CustomHeader():
             panel_layout_vertical.Add(panel_layout_horizontal, 1, wx.ALIGN_CENTER, int(width/3))
             self.panel.SetSizer(panel_layout_vertical)
             self.panel.Layout()
-
+    
 
     def GetObject(self):
         return self.panel

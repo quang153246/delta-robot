@@ -27,25 +27,24 @@ class Select():
                 Mission(1, "Ca Chiều", "2225252", "12315324")]
 
         sampleList = []
-        self.cb = wx.ComboBox(self.panel,size=wx.DefaultSize,choices=sampleList)
-        # self.cb.SetSize((300,-1))
+        self.cb = wx.ComboBox(self.panel, size=wx.DefaultSize, choices=sampleList, name="mission_select")
+        self.cb.SetSize((300,-1))
         self.widgetMaker(self.cb, missions)
 
-        sizer = wx.BoxSizer(wx.HORIZONTAL)
-        sizer.Add(self.cb, 1, flag=wx.EXPAND|wx.ALL, border=150)
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(self.cb, 1, flag=wx.EXPAND|wx.ALL, border=0)
 
         self.panel.SetSizer(sizer)
+        self.panel.Bind(wx.EVT_COMBOBOX, self.onSelect)
 
     #----------------------------------------------------------------------
     def widgetMaker(self, widget, objects):
-        """"""
+        
         for obj in objects:
             widget.Append(obj.name, obj)
-        widget.Bind(wx.EVT_COMBOBOX, self.onSelect)
 
     #----------------------------------------------------------------------
     def onSelect(self, event):
-        """"""
         print ("You selected: " + self.cb.GetStringSelection())
         obj = self.cb.GetClientData(self.cb.GetSelection())
         text = """ The object's attributes are: %s  %s    %s  %s""" % (obj.id, obj.name, obj.startTime, obj.stopTime)
