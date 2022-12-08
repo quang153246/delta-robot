@@ -52,8 +52,9 @@ class ToggleButton():
                 self.button.SetLabel(self.init_label)
             self.button.SetBackgroundColour(self.init_backGround)
             self.button.SetForegroundColour(self.init_textColor)
-
-
+    def handleChangeStatus(self):
+        self.button_state = not(self.button_state)
+        self.
 
     def GetObject(self):
         return self.button
