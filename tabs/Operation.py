@@ -4,6 +4,8 @@ from components.Button import CustomButton
 from components.ToggleButton import ToggleButton
 from components.Header import CustomHeader
 from components.Select import Select
+from components.VideoFrame import VideoFrame
+
 
 class OperationTab():
     def __init__(self, parent) -> None:
@@ -139,22 +141,45 @@ class OperationTab():
         self.time_box.Layout()
 
         # ----Video Box-----
+        # self.video_box = wx.Panel(self.monitor_tab)
+        # self.video_box.SetBackgroundColour(self.__ui_colour.black)
+
+        # video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
+        # video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
+
+        # self.stream_video = wx.Panel(self.video_box)
+        # logo_width, logo_height = self.video_box.GetSize()
+        # self.logo_image = wx.Image("./image/sample.png").Scale(int(logo_width)*40, int(logo_height)*26, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
+        # self.logo_bitmap = wx.StaticBitmap(self.stream_video)
+        # self.logo_bitmap.SetBitmap(self.logo_image)
+
+        # video_box_layout.Add(self.stream_video, 1, wx.ALIGN_CENTER,0 )
+        # # video_box_layout_sub.Add(video_box_layout, 1, wx.ALIGN_CENTER,0 )
+        # self.video_box.SetSizer(video_box_layout)
+        # self.video_box.Layout()
+
+
         self.video_box = wx.Panel(self.monitor_tab)
-        self.video_box.SetBackgroundColour(self.__ui_colour.black)
+        self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 
         video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
         video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
 
-        self.stream_video = wx.Panel(self.video_box)
-        logo_width, logo_height = self.video_box.GetSize()
-        self.logo_image = wx.Image("./image/sample.png").Scale(int(logo_width)*40, int(logo_height)*26, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
-        self.logo_bitmap = wx.StaticBitmap(self.stream_video)
-        self.logo_bitmap.SetBitmap(self.logo_image)
+        # self.stream_video = wx.Panel(self.video_box)
+        # logo_width, logo_height = self.video_box.GetSize()
+        # self.logo_image = wx.Image("./image/sample.png").Scale(int(logo_width)*40, int(logo_height)*26, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
+        # self.logo_bitmap = wx.StaticBitmap(self.stream_video)
+        # self.logo_bitmap.SetBitmap(self.logo_image)
 
-        video_box_layout.Add(self.stream_video, 1, wx.ALIGN_CENTER,0 )
-        # video_box_layout_sub.Add(video_box_layout, 1, wx.ALIGN_CENTER,0 )
-        self.video_box.SetSizer(video_box_layout)
+        self.stream_video = VideoFrame(self.video_box, 30).GetObject()
+
+        video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
+        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
+        self.video_box.SetSizer(video_box_layout_sub)
         self.video_box.Layout()
+
+
+
 
         # ------ Result_box Box -------
         self.result_box = wx.Panel(self.monitor_tab)
@@ -172,7 +197,7 @@ class OperationTab():
 
         monitor_tab_layout = wx.BoxSizer(wx.VERTICAL)
         monitor_tab_layout.Add(self.time_box, 1 , wx.EXPAND|wx.ALL, 0)
-        monitor_tab_layout.Add(self.video_box, 6 , wx.ALIGN_CENTER, 0)
+        monitor_tab_layout.Add(self.video_box, 6 , wx.EXPAND|wx.ALL, 0)
         monitor_tab_layout.Add(self.result_box, 1 , wx.EXPAND|wx.LEFT|wx.RIGHT, 10)
 
         self.monitor_tab.SetSizer(monitor_tab_layout)
