@@ -4,6 +4,7 @@ from components.Button import CustomButton
 from components.ToggleButton import ToggleButton
 from components.Header import CustomHeader
 from components.Select import Select
+from components.VideoFrame import ImagePanel
 
 class OperationTab():
     def __init__(self, parent) -> None:
@@ -139,28 +140,30 @@ class OperationTab():
 
         # ----Video Box-----
         self.video_box = wx.Panel(self.monitor_tab)
-        self.video_box.SetBackgroundColour(self.__ui_colour.black)
+        self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 
         video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
         video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
 
-        self.stream_video = wx.Panel(self.video_box)
-        logo_width, logo_height = self.video_box.GetSize()
-        self.logo_image = wx.Image("./image/sample.png").Scale(int(logo_width)*40, int(logo_height)*26, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
-        self.logo_bitmap = wx.StaticBitmap(self.stream_video)
-        self.logo_bitmap.SetBitmap(self.logo_image)
+        # self.stream_video = wx.Panel(self.video_box)
+        # logo_width, logo_height = self.video_box.GetSize()
+        # self.logo_image = wx.Image("./image/sample.png").Scale(int(logo_width)*40, int(logo_height)*26, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
+        # self.logo_bitmap = wx.StaticBitmap(self.stream_video)
+        # self.logo_bitmap.SetBitmap(self.logo_image)
 
-        video_box_layout.Add(self.stream_video, 1, wx.ALIGN_CENTER,0 )
-        # video_box_layout_sub.Add(video_box_layout, 1, wx.ALIGN_CENTER,0 )
-        self.video_box.SetSizer(video_box_layout)
+        self.stream_video = ImagePanel(self.video_box, 30).GetObject()
+
+        video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
+        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
+        self.video_box.SetSizer(video_box_layout_sub)
         self.video_box.Layout()
 
         # ------ Result_box Box -------
         self.result_box = wx.Panel(self.monitor_tab)
         result_box_layout = wx.BoxSizer(wx.HORIZONTAL)
 
-        not_good_items = CustomHeader(self.result_box, "Not Good Items: " + "100", self.__ui_colour.white, self.__ui_colour.GREEN_MAIN).GetObject()
-        already_picked_items = CustomHeader(self.result_box, "Already_Picked_Items: " + "100", self.__ui_colour.white, self.__ui_colour.GREEN_DARK).GetObject()
+        not_good_items = CustomHeader(self.result_box, "Not Good Items: " + "100", self.__ui_colour.white, self.__ui_colour.GREEN_DARK, 20).GetObject()
+        already_picked_items = CustomHeader(self.result_box, "Already_Picked_Items: " + "100", self.__ui_colour.white, self.__ui_colour.GREEN_DARK, 20).GetObject()
         result_box_layout.Add(not_good_items, 1, wx.EXPAND|wx.ALL, 1)
         result_box_layout.Add(already_picked_items, 1, wx.EXPAND|wx.ALL, 1)
    
@@ -171,7 +174,7 @@ class OperationTab():
 
         monitor_tab_layout = wx.BoxSizer(wx.VERTICAL)
         monitor_tab_layout.Add(self.time_box, 1 , wx.EXPAND|wx.ALL, 0)
-        monitor_tab_layout.Add(self.video_box, 6 , wx.ALIGN_CENTER, 0)
+        monitor_tab_layout.Add(self.video_box, 6 , wx.EXPAND|wx.ALL, 0)
         monitor_tab_layout.Add(self.result_box, 1 , wx.EXPAND|wx.LEFT|wx.RIGHT, 10)
 
         self.monitor_tab.SetSizer(monitor_tab_layout)
