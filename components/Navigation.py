@@ -10,12 +10,15 @@ class Navigation():
         self.logoPath = "./image/TMA_logo.PNG"
 
         self.navigation_panel = wx.Panel(self.parent)
-        self.navigation_panel.SetBackgroundColour(self.__ui_colour.black)
+        self.navigation_panel.SetBackgroundColour(self.__ui_colour.BLACK)
 
-        self.operation_button = ToggleButton(self.navigation_panel, Title= "Operation", BackGround= self.__ui_colour.BLUE_DARK, SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white).GetObject() 
+        self.operation_button = ToggleButton(self.navigation_panel, Title= "Operation", BackGround= self.__ui_colour.BLUE_DARK, SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=False)
 
-        self.settings_button = ToggleButton(self.navigation_panel, Title= "Setting", BackGround= self.__ui_colour.BLUE_DARK,SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=True).GetObject()
+        self.settings_button = ToggleButton(self.navigation_panel, Title= "Setting", BackGround= self.__ui_colour.BLUE_DARK,SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=True)
 
+        # Bind events
+        self.operation_button.GetObject().Bind(wx.EVT_BUTTON, self.operation_button_changeState)
+        self.settings_button.GetObject().Bind(wx.EVT_BUTTON, self.settings_button_changeState)
         # Create navigation logo.
         self.logo_panel = wx.Panel(self.navigation_panel)
         logo_width, logo_height = self.logo_panel.GetSize()
@@ -25,12 +28,20 @@ class Navigation():
         
         # Layout navigation panel.
         navigation_layout = wx.BoxSizer(wx.HORIZONTAL)
-        navigation_layout.Add(self.operation_button, 7, wx.EXPAND|wx.RIGHT, 1)
-        navigation_layout.Add(self.settings_button, 7, wx.EXPAND|wx.RIGHT, 1)
+        navigation_layout.Add(self.operation_button.GetObject(), 7, wx.EXPAND|wx.RIGHT, 10)
+        navigation_layout.Add(self.settings_button.GetObject(), 7, wx.EXPAND|wx.RIGHT, 10)
         navigation_layout.Add(self.logo_panel, 1, wx.EXPAND|wx.RIGHT, 1)
         
         self.navigation_panel.SetSizer(navigation_layout)
         self.navigation_panel.Layout()
+
+    def operation_button_changeState(self, event):
+        self.operation_button.onSelect(None)
+        self.settings_button.onDisable(None)
+    def settings_button_changeState(self, event):
+        self.settings_button.onSelect(None)
+        self.operation_button.onDisable(None)
+        
 
 
     def GetObject(self):

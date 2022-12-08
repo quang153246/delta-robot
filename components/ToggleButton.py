@@ -30,11 +30,23 @@ class ToggleButton():
         self.button.SetForegroundColour(self.init_textColor)
         self.button.SetFont(wx.Font(self.textSize, wx.DECORATIVE, wx.NORMAL, wx.BOLD))
         
+        self.button.Bind(wx.EVT_BUTTON, self.onSelect)
         self.button.Bind(wx.EVT_BUTTON, self.onToggle)
         self.button.Bind(wx.EVT_MOTION, self.onMove)
 
-    def onClick(self, event):
-        print("Clicked")
+    def onDisable(self, event):
+        self.button_state == True
+        self.button.SetBackgroundColour(self.toggle_backGround)
+        if(self.toggle_label != None):
+                self.button.SetLabel(self.toggle_label)
+
+    def onSelect(self, event):
+        self.button_state == False
+        if(self.toggle_label != None):
+            self.button.SetLabel(self.init_label)
+        self.button.SetBackgroundColour(self.init_backGround)
+        self.button.SetForegroundColour(self.init_textColor)
+
 
     def onMove(self, event):
         img = wx.Image('./image/pointer_50x50.png')
@@ -42,8 +54,8 @@ class ToggleButton():
         self.button.SetCursor(crsr)
 
     def onToggle(self, event):
-        self.button_state = not(self.button_state)
-        if self.button_state == True:
+        self.getState = not(self.getState)
+        if self.getState == True:
             self.button.SetBackgroundColour(self.toggle_backGround)
             if(self.toggle_label != None):
                 self.button.SetLabel(self.toggle_label)
@@ -52,9 +64,9 @@ class ToggleButton():
                 self.button.SetLabel(self.init_label)
             self.button.SetBackgroundColour(self.init_backGround)
             self.button.SetForegroundColour(self.init_textColor)
-    def handleChangeStatus(self):
-        self.button_state = not(self.button_state)
-        self.
+
+    def getState(self):
+        return self.button_state
 
     def GetObject(self):
         return self.button

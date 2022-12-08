@@ -62,10 +62,12 @@ class OperationTab():
         control_content_layout_v =  wx.BoxSizer(wx.VERTICAL)
         control_content_layout_h =  wx.BoxSizer(wx.HORIZONTAL)
         control_content_layout_sub =  wx.BoxSizer(wx.HORIZONTAL)
-        self.startButton = ToggleButton(self.control_content, Title= "Start", BackGround= self.__ui_colour.GREEN_DARK, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE).GetObject()
-        self.stopButton = ToggleButton(self.control_content, Title= "Stop", BackGround= self.__ui_colour.RED_DARK, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE).GetObject()
-        control_content_layout_v.Add(self.startButton, 1, wx.EXPAND|wx.BOTTOM, 10)
-        control_content_layout_v.Add(self.stopButton, 1, wx.EXPAND|wx.TOP, 10)
+        self.startButton = ToggleButton(self.control_content, Title= "Start", BackGround= self.__ui_colour.GREEN_DARK, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False)
+        self.stopButton = ToggleButton(self.control_content, Title= "Stop", BackGround= self.__ui_colour.RED_DARK, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State=True)
+        self.startButton.GetObject().Bind(wx.EVT_BUTTON, self.startButton_changeState)
+        self.stopButton.GetObject().Bind(wx.EVT_BUTTON, self.stopButton_changeState)
+        control_content_layout_v.Add(self.startButton.GetObject(), 1, wx.EXPAND|wx.BOTTOM, 10)
+        control_content_layout_v.Add(self.stopButton.GetObject(), 1, wx.EXPAND|wx.TOP, 10)
         control_content_layout_h.Add(control_content_layout_v, 1,  wx.EXPAND|wx.LEFT|wx.RIGHT, 45)
         
         control_content_layout_sub.Add(control_content_layout_h, 1, wx.EXPAND|wx.TOP|wx.BOTTOM, 20)
@@ -78,7 +80,6 @@ class OperationTab():
         control_box_layout.Add(self.control_content, 5, wx.EXPAND|wx.ALL, 0)
         self.control_box.SetSizer(control_box_layout)
         self.control_box.Layout()
-
 
 
 
@@ -193,3 +194,9 @@ class OperationTab():
 
     def GetObject(self):
         return self.body_panel
+    def startButton_changeState(self, event):
+        self.stopButton.onSelect(None)
+        self.startButton.onDisable(None)
+    def stopButton_changeState(self, event):
+        self.startButton.onSelect(None)
+        self.stopButton.onDisable(None)
