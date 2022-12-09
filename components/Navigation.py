@@ -1,5 +1,4 @@
 import wx
-from components.Button import CustomButton
 from components.ToggleButton import ToggleButton
 from colour import UIColour
 
@@ -12,9 +11,9 @@ class Navigation():
         self.navigation_panel = wx.Panel(self.parent)
         self.navigation_panel.SetBackgroundColour(self.__ui_colour.BLACK)
 
-        self.operation_button = ToggleButton(self.navigation_panel, Title= "Operation", BackGround= self.__ui_colour.BLUE_DARK, SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=False)
+        self.operation_button = ToggleButton(self.navigation_panel, Title= "Operation", BackGround= self.__ui_colour.BLUE_DARK, SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=22)
 
-        self.settings_button = ToggleButton(self.navigation_panel, Title= "Setting", BackGround= self.__ui_colour.BLUE_DARK,SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=True)
+        self.settings_button = ToggleButton(self.navigation_panel, Title= "Settings", BackGround= self.__ui_colour.BLUE_DARK,SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=True, TextSize=22)
 
         # Bind events
         self.operation_button.GetObject().Bind(wx.EVT_BUTTON, self.operation_button_changeState)

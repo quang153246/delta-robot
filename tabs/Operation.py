@@ -1,6 +1,5 @@
 from colour import UIColour
 import wx
-from components.Button import CustomButton
 from components.ToggleButton import ToggleButton
 from components.Header import CustomHeader
 from components.Select import Select
@@ -16,7 +15,7 @@ class OperationTab():
         self.body_panel.SetBackgroundColour(self.__ui_colour.BLACK)
 
         # Create header mode.
-        self.mode_header = CustomHeader(self.body_panel, "Operation", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 18).GetObject()
+        self.mode_header = CustomHeader(self.body_panel, "Operation", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 20).GetObject()
 
         # Create interface panel.
         self.control_tab = wx.Panel(self.body_panel)
@@ -26,17 +25,14 @@ class OperationTab():
         self.mission_box = wx.Panel(self.control_tab)
         mission_box_layout = wx.BoxSizer(wx.VERTICAL)
 
-        # Create header mission.
-        self.mission_header = CustomHeader(self.mission_box, "Choose Mission", self.__ui_colour.GRAY_DARK, self.__ui_colour.WHITE).GetObject()
-        # Create content mission.
-        # self.mission_content =  CustomHeader(self.mission_box, BackGround=self.__ui_colour.white).GetObject()
-
         self.mission_content =  wx.Panel(self.mission_box)
 
 
-        mission_content_layout =  wx.BoxSizer(wx.HORIZONTAL)
+        mission_content_layout =  wx.BoxSizer(wx.VERTICAL)
         sub =  wx.BoxSizer(wx.VERTICAL)
+        self.select_label = CustomHeader(self.mission_content, "Choose Mission:", self.__ui_colour.WHITE, self.__ui_colour.GREEN_MAIN).GetObject()
         self.select = Select(self.mission_content).GetObject()
+        mission_content_layout.Add(self.select_label, 1, wx.EXPAND|wx.TOP, 20)
         mission_content_layout.Add(self.select, 1, wx.EXPAND|wx.TOP, 20)
         sub.Add(mission_content_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT, 45)
        
@@ -44,11 +40,9 @@ class OperationTab():
         self.mission_content.Layout()
 
         # Create enable run immediately button.
-        self.run_immediately_button = ToggleButton(self.mission_box, "Enable run immediately","Disable run immediately", self.__ui_colour.BLUE_MAIN, self.__ui_colour.GRAY_MAIN ,self.__ui_colour.WHITE).GetObject()
 
-        mission_box_layout.Add(self.mission_header, 1, wx.EXPAND|wx.ALL, 0)
+        # mission_box_layout.Add(self.mission_header, 1, wx.EXPAND|wx.ALL, 0)
         mission_box_layout.Add(self.mission_content, 1, wx.EXPAND|wx.ALL, 0)
-        mission_box_layout.Add(self.run_immediately_button, 3, wx.EXPAND|wx.ALL, 45)
         self.mission_box.SetSizer(mission_box_layout)
         self.mission_box.Layout()
 
@@ -56,29 +50,30 @@ class OperationTab():
 
         self.control_box = wx.Panel(self.control_tab)
         control_box_layout = wx.BoxSizer(wx.VERTICAL)
-        # Create header control.
-        self.control_header = CustomHeader(self.control_box, "Control", self.__ui_colour.GRAY_DARK, self.__ui_colour.white).GetObject()
 
         # Create content control.
         self.control_content =  wx.Panel(self.control_box)
         control_content_layout_v =  wx.BoxSizer(wx.VERTICAL)
         control_content_layout_h =  wx.BoxSizer(wx.HORIZONTAL)
         control_content_layout_sub =  wx.BoxSizer(wx.HORIZONTAL)
-        self.startButton = ToggleButton(self.control_content, Title= "Start", BackGround= self.__ui_colour.GREEN_DARK, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False)
-        self.stopButton = ToggleButton(self.control_content, Title= "Stop", BackGround= self.__ui_colour.RED_DARK, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State=True)
+
+        self.select_label = CustomHeader(self.control_content, "Control:", self.__ui_colour.WHITE, self.__ui_colour.GREEN_MAIN)
+        self.startButton = ToggleButton(self.control_content, Title= "Start", BackGround= self.__ui_colour.GREEN_DARK, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=20)
+        self.stopButton = ToggleButton(self.control_content, Title= "Stop", BackGround= self.__ui_colour.RED_DARK, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State=True, TextSize=20)
+        
         self.startButton.GetObject().Bind(wx.EVT_BUTTON, self.startButton_changeState)
         self.stopButton.GetObject().Bind(wx.EVT_BUTTON, self.stopButton_changeState)
-        control_content_layout_v.Add(self.startButton.GetObject(), 1, wx.EXPAND|wx.BOTTOM, 10)
-        control_content_layout_v.Add(self.stopButton.GetObject(), 1, wx.EXPAND|wx.TOP, 10)
+        control_content_layout_v.Add(self.select_label.GetObject(), 1, wx.EXPAND|wx.BOTTOM, 20)
+        control_content_layout_v.Add(self.startButton.GetObject(), 3, wx.EXPAND|wx.BOTTOM, 20)
+        control_content_layout_v.Add(self.stopButton.GetObject(), 3, wx.EXPAND|wx.TOP, 20)
         control_content_layout_h.Add(control_content_layout_v, 1,  wx.EXPAND|wx.LEFT|wx.RIGHT, 45)
         
-        control_content_layout_sub.Add(control_content_layout_h, 1, wx.EXPAND|wx.TOP|wx.BOTTOM, 20)
+        control_content_layout_sub.Add(control_content_layout_h, 1, wx.EXPAND|wx.TOP|wx.BOTTOM, 30)
         
         self.control_content.SetSizer(control_content_layout_sub)
         self.control_content.Layout()
 
 
-        control_box_layout.Add(self.control_header, 1, wx.EXPAND|wx.ALL, 0)
         control_box_layout.Add(self.control_content, 5, wx.EXPAND|wx.ALL, 0)
         self.control_box.SetSizer(control_box_layout)
         self.control_box.Layout()
@@ -112,11 +107,9 @@ class OperationTab():
 
         # Layout interface panel.
         control_tab_layout = wx.BoxSizer(wx.VERTICAL)
-        # control_tab_layout.Add(self.mission_header, 1, wx.EXPAND|wx.ALL, 0)
-        # control_tab_layout.Add(self.mission_content, 5, wx.EXPAND|wx.ALL, 0)
-        control_tab_layout.Add(self.mission_box, 3, wx.EXPAND|wx.ALL, 0)
-        control_tab_layout.Add(self.control_box, 3, wx.EXPAND|wx.ALL, 0)
-        control_tab_layout.Add(self.status_box, 2, wx.EXPAND|wx.ALL, 0)
+        control_tab_layout.Add(self.mission_box, 1, wx.EXPAND|wx.ALL, 0)
+        control_tab_layout.Add(self.control_box, 4, wx.EXPAND|wx.ALL, 0)
+        control_tab_layout.Add(self.status_box, 3, wx.EXPAND|wx.ALL, 0)
         self.control_tab.SetSizer(control_tab_layout)
         self.control_tab.Layout()
 
@@ -141,42 +134,19 @@ class OperationTab():
         self.time_box.Layout()
 
         # ----Video Box-----
+      
         # self.video_box = wx.Panel(self.monitor_tab)
-        # self.video_box.SetBackgroundColour(self.__ui_colour.black)
+        # self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 
         # video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
         # video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
 
-        # self.stream_video = wx.Panel(self.video_box)
-        # logo_width, logo_height = self.video_box.GetSize()
-        # self.logo_image = wx.Image("./image/sample.png").Scale(int(logo_width)*40, int(logo_height)*26, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
-        # self.logo_bitmap = wx.StaticBitmap(self.stream_video)
-        # self.logo_bitmap.SetBitmap(self.logo_image)
+        # self.stream_video = VideoFrame(self.video_box, 30).GetObject()
 
-        # video_box_layout.Add(self.stream_video, 1, wx.ALIGN_CENTER,0 )
-        # # video_box_layout_sub.Add(video_box_layout, 1, wx.ALIGN_CENTER,0 )
-        # self.video_box.SetSizer(video_box_layout)
+        # video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
+        # video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
+        # self.video_box.SetSizer(video_box_layout_sub)
         # self.video_box.Layout()
-
-
-        self.video_box = wx.Panel(self.monitor_tab)
-        self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
-
-        video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
-        video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
-
-        # self.stream_video = wx.Panel(self.video_box)
-        # logo_width, logo_height = self.video_box.GetSize()
-        # self.logo_image = wx.Image("./image/sample.png").Scale(int(logo_width)*40, int(logo_height)*26, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
-        # self.logo_bitmap = wx.StaticBitmap(self.stream_video)
-        # self.logo_bitmap.SetBitmap(self.logo_image)
-
-        self.stream_video = VideoFrame(self.video_box, 30).GetObject()
-
-        video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
-        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
-        self.video_box.SetSizer(video_box_layout_sub)
-        self.video_box.Layout()
 
 
 
@@ -186,7 +156,7 @@ class OperationTab():
         result_box_layout = wx.BoxSizer(wx.HORIZONTAL)
 
         not_good_items = CustomHeader(self.result_box, "Not Good Items: " + "100", self.__ui_colour.white, self.__ui_colour.GREEN_MAIN).GetObject()
-        already_picked_items = CustomHeader(self.result_box, "Already_Picked_Items: " + "100", self.__ui_colour.white, self.__ui_colour.GREEN_DARK).GetObject()
+        already_picked_items = CustomHeader(self.result_box, "Already_Picked_Items: " + "100", self.__ui_colour.white, self.__ui_colour.GREEN_MAIN).GetObject()
         result_box_layout.Add(not_good_items, 1, wx.EXPAND|wx.ALL, 1)
         result_box_layout.Add(already_picked_items, 1, wx.EXPAND|wx.ALL, 1)
    
@@ -197,7 +167,7 @@ class OperationTab():
 
         monitor_tab_layout = wx.BoxSizer(wx.VERTICAL)
         monitor_tab_layout.Add(self.time_box, 1 , wx.EXPAND|wx.ALL, 0)
-        monitor_tab_layout.Add(self.video_box, 6 , wx.EXPAND|wx.ALL, 0)
+        # monitor_tab_layout.Add(self.video_box, 6 , wx.EXPAND|wx.ALL, 0)
         monitor_tab_layout.Add(self.result_box, 1 , wx.EXPAND|wx.LEFT|wx.RIGHT, 10)
 
         self.monitor_tab.SetSizer(monitor_tab_layout)

@@ -1,5 +1,6 @@
 import wx
 
+
 class CustomHeader():
     def __init__(self, parent, title=None, BackGround=None, TextColor=None, TextSize=None) -> None:
         self.parent = parent

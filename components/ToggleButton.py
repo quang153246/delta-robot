@@ -55,7 +55,7 @@ class ToggleButton():
 
     def onToggle(self, event):
         self.getState = not(self.getState)
-        if self.getState == True:
+        if self.getState == False:
             self.button.SetBackgroundColour(self.toggle_backGround)
             if(self.toggle_label != None):
                 self.button.SetLabel(self.toggle_label)
