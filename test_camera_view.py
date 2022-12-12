@@ -17,7 +17,8 @@ class ImagePanel(wx.Panel):
         self.SetSize((frame_width, frame_height))
 
         # Change frane color
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame = cv2.flip(frame, 1)
+        frame = cv2.cvtColor(cv2.flip(frame, 1), cv2.COLOR_BGR2RGB)
 
         # Create buffer to store frame
         self.bmp = wx.Bitmap.FromBuffer(frame_width, frame_height, frame)

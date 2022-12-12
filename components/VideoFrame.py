@@ -17,7 +17,8 @@ class VideoFrame():
         print("Width, Height of frameeeee:", frame_width, frame_height)
         self.image_panel.SetSize((frame_width, frame_height))
 
-        # Change frane color
+        # Change frane color and flip image
+        frame = cv2.flip(frame, 1)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         # Create buffer to store frame
@@ -36,6 +37,7 @@ class VideoFrame():
 
     def NextFrame(self, event):
         ret, frame = self.vs.read()
+        frame = cv2.flip(frame, 1)
         # height, width, layers = frame.shape
         # print("Width, Height of frameeeee:", width, height)
 

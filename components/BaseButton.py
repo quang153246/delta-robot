@@ -25,7 +25,6 @@ class BaseButton():
 
     def onToggle(self, event):
         self.button_state = not(self.button_state)
-        print(self.button_state)
         if self.button_state == True:
             self.button.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
         else:

@@ -12,7 +12,6 @@ class ToggleButton():
         self.toggle_textColor = SubTextColor
 
         self.button_state = State | False
-        print(self.button_state)
 
         if (TextSize == None):
             self.textSize = 14
