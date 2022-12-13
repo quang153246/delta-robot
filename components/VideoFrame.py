@@ -7,6 +7,8 @@ class VideoFrame():
         self.image_panel = wx.Panel(parent)
         self.fps = fps
         self.cap = cv2.VideoCapture(0)
+        
+
 
         ret, frame = self.cap.read()
 
@@ -14,8 +16,7 @@ class VideoFrame():
             print("Error")
 
         # Set panel size = frame size
-        frame_height = 640
-        frame_width = 480
+        frame_height, frame_width, layers = frame.shape
         print("Width, Height of frameeeee:", frame_width, frame_height)
         self.image_panel.SetSize((frame_width, frame_height))
 

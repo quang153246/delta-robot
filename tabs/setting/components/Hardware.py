@@ -68,17 +68,30 @@ class Hardware():
         self.camera_control.Layout()
 
         #camera
+        # self.video_box = wx.Panel(self.camera_tab)
+        # self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
+
+        # video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
+        # video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
+
+        # self.stream_video = VideoFrame(self.video_box, 30).GetObject()
+
+        # video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,32)
+        # video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,360 )
+        # self.video_box.SetSizer(video_box_layout_sub)
+        # self.video_box.Layout()
+
         self.video_box = wx.Panel(self.camera_tab)
         self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 
-        video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
-        video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
+        video_box_layout_h = wx.BoxSizer(wx.HORIZONTAL)
+        video_box_layout_v = wx.BoxSizer(wx.VERTICAL)
 
         self.stream_video = VideoFrame(self.video_box, 30).GetObject()
 
-        video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,32)
-        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,360 )
-        self.video_box.SetSizer(video_box_layout_sub)
+        video_box_layout_h.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
+        video_box_layout_v.Add(video_box_layout_h, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
+        self.video_box.SetSizer(video_box_layout_v)
         self.video_box.Layout()
 
 

@@ -4,7 +4,7 @@ from components.Header import CustomHeader
 from components.ToggleButton import ToggleButton
 from components.VideoFrame import VideoFrame
 
-class AI():
+class AISetting():
     def __init__(self, parent) -> None:
         self.parent = parent
         self.__ui_colour = UIColour()
@@ -18,6 +18,8 @@ class AI():
         self.note = CustomHeader(self.content, "Mandatory for the robot operation *", self.__ui_colour.WHITE, self.__ui_colour.RED_MAIN, 14, False).GetObject()
         self.video_label = CustomHeader(self.content, "Stream output:​", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 14, False).GetObject()
         # self.video_box = VideoFrame(self.content, 30).GetObject()
+
+        
         self.video_box = wx.Panel(self.content)
         self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 

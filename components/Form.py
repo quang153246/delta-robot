@@ -1,6 +1,7 @@
 import wx
 from components.Header import CustomHeader
 from colour import UIColour
+import wx.lib.masked as masked
 
 
 class Form():
@@ -11,7 +12,7 @@ class Form():
 
         self.form = wx.Panel(self.parent)
 
-        self.form_label = CustomHeader(self.form, label, self.__ui_colour.WHITE, textColor).GetObject()
+        self.form_label = CustomHeader(self.form, title= label, BackGround= self.__ui_colour.WHITE, TextColor= textColor, isCenter=False).GetObject()
         self.form_input = wx.TextCtrl(self.form, -1, "")
 
         self.form_layout = wx.BoxSizer(wx.HORIZONTAL)

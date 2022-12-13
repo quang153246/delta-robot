@@ -16,13 +16,13 @@ class MainFrame():
         self.navigation = Navigation(self.main_frame).GetObject()
 
         # Tab
-        self.operation = OperationTab(self.main_frame).GetObject()
+        # self.operation = OperationTab(self.main_frame).GetObject()
         self.setting = SettingTab(self.main_frame).GetObject()
 
         # Layout main frame.
         main_layout = wx.BoxSizer(wx.VERTICAL)
         main_layout.Add(self.navigation, 1, wx.EXPAND|wx.ALL, 0)
-        main_layout.Add(self.operation, 10, wx.EXPAND|wx.ALL, 0)
+        main_layout.Add(self.setting, 10, wx.EXPAND|wx.ALL, 0)
         self.main_frame.SetSizer(main_layout)
         self.main_frame.Layout()
 

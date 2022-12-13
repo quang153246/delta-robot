@@ -4,7 +4,7 @@ from colour import UIColour
 
 class ToggleButton():
 
-    def __init__(self, parent, Title, SubTitle = None , BackGround = None, SubBackGround = None , TextColor= None, SubTextColor = None, TextSize = None, State = False, Effect = False) -> None:
+    def __init__(self, parent, Title, SubTitle = None , BackGround = None, SubBackGround = None , TextColor= None, SubTextColor = None, TextSize = None, State = False, Effect = False, callback = None) -> None:
         self.__ui_colour = UIColour()
         self.init_label = Title
         self.toggle_label = SubTitle
@@ -12,6 +12,7 @@ class ToggleButton():
         self.toggle_backGround = SubBackGround
         self.init_textColor = TextColor
         self.toggle_textColor = SubTextColor
+        self.callback = callback
 
         self.button_state = State | False
 
@@ -52,6 +53,7 @@ class ToggleButton():
         self.button.SetForegroundColour(self.init_textColor)
 
     def onClick(self, event):
+        
         self.button.SetBackgroundColour(self.toggle_backGround)
         time.sleep(0.5)
         self.button.SetBackgroundColour(self.init_backGround)
@@ -64,6 +66,8 @@ class ToggleButton():
         self.button.SetCursor(crsr)
 
     def onToggle(self, event):
+        if (self.callback != None):
+            self.callback()
         self.getState = not(self.getState)
         if self.getState == False:
             self.button.SetBackgroundColour(self.toggle_backGround)

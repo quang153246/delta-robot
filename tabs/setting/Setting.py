@@ -3,7 +3,8 @@ import wx
 from components.Header import CustomHeader
 from components.SettingNav import SettingNav
 from tabs.setting.components.Hardware import Hardware
-# from tabs.setting.components.AI import AI
+from tabs.setting.components.AISetting import AISetting
+from tabs.setting.components.Mission import Mission
 
 
 class SettingTab():
@@ -18,7 +19,9 @@ class SettingTab():
         self.mode_header = CustomHeader(self.body_panel, "Settings", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 20).GetObject()
         self.tab_header = SettingNav(self.body_panel).GetObject()
 
-        self.content_panel = Hardware(self.body_panel).GetObject()
+        # self.content_panel = Hardware(self.body_panel).GetObject()
+        # self.content_panel = AISetting(self.body_panel).GetObject()
+        self.content_panel = Mission(self.body_panel).GetObject()
        
         # Gather all components (Header mode, header tab, content)
         body_layout = wx.BoxSizer(wx.VERTICAL)
