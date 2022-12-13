@@ -6,14 +6,16 @@ class VideoFrame():
     def __init__(self, parent, fps):
         self.image_panel = wx.Panel(parent)
         self.fps = fps
-        self.vs = cv2.VideoCapture(0)       
+        self.cap = cv2.VideoCapture(0)
 
-        ret, frame = self.vs.read()
+        ret, frame = self.cap.read()
+
         if not ret:
             print("Error")
 
         # Set panel size = frame size
-        frame_height, frame_width, layers = frame.shape
+        frame_height = 640
+        frame_width = 480
         print("Width, Height of frameeeee:", frame_width, frame_height)
         self.image_panel.SetSize((frame_width, frame_height))
 
@@ -36,16 +38,17 @@ class VideoFrame():
         dc.DrawBitmap(self.bmp, 0, 0)
 
     def NextFrame(self, event):
-        ret, frame = self.vs.read()
-        frame = cv2.flip(frame, 1)
+        ret, frame = self.cap.read()
+        
         # height, width, layers = frame.shape
         # print("Width, Height of frameeeee:", width, height)
 
         if ret:
-
+            frame = cv2.flip(frame, 1)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             self.bmp.CopyFromBuffer(frame)
             self.image_panel.Refresh()
 
     def GetObject(self):
+        print(self.image_panel)
         return self.image_panel

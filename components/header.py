@@ -1,8 +1,7 @@
 import wx
 
-
 class CustomHeader():
-    def __init__(self, parent, title=None, BackGround=None, TextColor=None, TextSize=None) -> None:
+    def __init__(self, parent, title=None, BackGround=None, TextColor=None, TextSize=None, isCenter = True) -> None:
         self.parent = parent
         self.panel = wx.Panel(self.parent)
         self.panel.SetBackgroundColour(BackGround)
@@ -19,14 +18,18 @@ class CustomHeader():
             self.panel_text.SetForegroundColour(TextColor)
             self.panel_text.SetFont(wx.Font(TextSize, wx.DECORATIVE, wx.NORMAL, wx.BOLD))
 
-            # Layout panel.
-            panel_layout_vertical = wx.BoxSizer(wx.VERTICAL)
-            panel_layout_horizontal = wx.BoxSizer(wx.HORIZONTAL)
-            width, height = self.panel.GetSize()
-            panel_layout_horizontal.Add(self.panel_text, 1, wx.ALIGN_CENTER, int(height/3))
-            panel_layout_vertical.Add(panel_layout_horizontal, 1, wx.ALIGN_CENTER, int(width/3))
+        # Layout panel.
+        panel_layout_vertical = wx.BoxSizer(wx.VERTICAL)
+        panel_layout_horizontal = wx.BoxSizer(wx.HORIZONTAL)
+        # width, height = self.panel.GetSize()
+        panel_layout_horizontal.Add(self.panel_text, 1, wx.ALIGN_CENTER)
+        if (isCenter == True):
+            panel_layout_vertical.Add(panel_layout_horizontal, 1, wx.ALIGN_CENTER)
             self.panel.SetSizer(panel_layout_vertical)
-            self.panel.Layout()
+        else:
+            self.panel.SetSizer(panel_layout_horizontal)
+
+        self.panel.Layout()
     
 
     def GetObject(self):

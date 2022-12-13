@@ -22,7 +22,7 @@ class MainFrame():
         # Layout main frame.
         main_layout = wx.BoxSizer(wx.VERTICAL)
         main_layout.Add(self.navigation, 1, wx.EXPAND|wx.ALL, 0)
-        main_layout.Add(self.setting, 10, wx.EXPAND|wx.ALL, 0)
+        main_layout.Add(self.operation, 10, wx.EXPAND|wx.ALL, 0)
         self.main_frame.SetSizer(main_layout)
         self.main_frame.Layout()
 
@@ -37,71 +37,3 @@ if __name__ == "__main__":
     app.MainLoop()
 
 
-
-# import random
-# import wx
- 
-# ########################################################################
-# class TabPanel(wx.Panel):
-#     #----------------------------------------------------------------------
-#     def __init__(self, parent, page):
-#         """"""
-#         wx.Panel.__init__(self, parent=parent)
-#         self.page = page
- 
-#         colors = ["red", "gray", "yellow", "green"]
-#         self.SetBackgroundColour(random.choice(colors))
- 
-#         btn = wx.Button(self, label="Change Selection")
-#         btn.Bind(wx.EVT_BUTTON, self.remove)
-#         sizer = wx.BoxSizer(wx.VERTICAL)
-#         sizer.Add(btn, 0, wx.ALL, 10)
-#         self.SetSizer(sizer)
-        
-#     #----------------------------------------------------------------------
-#     def onChangeSelection(self, event):
-#         """
-#         Change the page!
-#         """
-#         notebook = self.GetParent()
-#         notebook.SetSelection(self.page)
-#     def remove(self, event):
-#         self.Destroy()
- 
-# ########################################################################
-# class DemoFrame(wx.Frame):
-#     """
-#     Frame that holds all other widgets
-#     """
- 
-#     #----------------------------------------------------------------------
-#     def __init__(self):
-#         """Constructor"""        
-#         wx.Frame.__init__(self, None, wx.ID_ANY, 
-#                           "Notebook Tutorial",
-#                           size=(600,400)
-#                           )
-#         panel = wx.Panel(self)
- 
-#         notebook = wx.Notebook(panel)
-        
-#         tabOne = TabPanel(notebook, 1)
-#         # tabOne =   OperationTab(notebook).GetObject()
-#         notebook.AddPage(tabOne, "Operation")
-
-#         tabTwo = TabPanel(notebook, 2)
-#         # tabTwo = SettingTab(notebook).GetObject()
-#         notebook.AddPage(tabTwo, "Settings")
- 
-#         sizer = wx.BoxSizer(wx.VERTICAL)
-#         sizer.Add(notebook, 1, wx.ALL|wx.EXPAND, 5)
-#         panel.SetSizer(sizer)
-#         self.Layout()
- 
-#         self.Show()
- 
-# #----------------------------------------------------------------------
-# if __name__ == "__main__":
-#     app = wx.App(False)
-#     frame = DemoFrame()
-#     app.MainLoop()

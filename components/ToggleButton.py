@@ -1,9 +1,11 @@
 import wx
+import time
+from colour import UIColour
 
 class ToggleButton():
 
-    def __init__(self, parent, Title, SubTitle = None , BackGround = None, SubBackGround = None , TextColor= None, SubTextColor = None, TextSize = None, State = False) -> None:
-        
+    def __init__(self, parent, Title, SubTitle = None , BackGround = None, SubBackGround = None , TextColor= None, SubTextColor = None, TextSize = None, State = False, Effect = False) -> None:
+        self.__ui_colour = UIColour()
         self.init_label = Title
         self.toggle_label = SubTitle
         self.init_backGround = BackGround
@@ -28,9 +30,12 @@ class ToggleButton():
             self.button.SetBackgroundColour(self.init_backGround)
         self.button.SetForegroundColour(self.init_textColor)
         self.button.SetFont(wx.Font(self.textSize, wx.DECORATIVE, wx.NORMAL, wx.BOLD))
-        
+        # if (Effect==False):
         self.button.Bind(wx.EVT_BUTTON, self.onSelect)
         self.button.Bind(wx.EVT_BUTTON, self.onToggle)
+        # else:
+        #     self.button.Bind(wx.EVT_BUTTON, self.onClick)
+            
         self.button.Bind(wx.EVT_MOTION, self.onMove)
 
     def onDisable(self, event):
@@ -46,6 +51,12 @@ class ToggleButton():
         self.button.SetBackgroundColour(self.init_backGround)
         self.button.SetForegroundColour(self.init_textColor)
 
+    def onClick(self, event):
+        self.button.SetBackgroundColour(self.toggle_backGround)
+        time.sleep(0.5)
+        self.button.SetBackgroundColour(self.init_backGround)
+
+
 
     def onMove(self, event):
         img = wx.Image('./image/pointer_50x50.png')
@@ -58,6 +69,8 @@ class ToggleButton():
             self.button.SetBackgroundColour(self.toggle_backGround)
             if(self.toggle_label != None):
                 self.button.SetLabel(self.toggle_label)
+            if(self.toggle_textColor != None):
+                self.button.SetForegroundColour(self.toggle_textColor)
         else:
             if(self.toggle_label != None):
                 self.button.SetLabel(self.init_label)

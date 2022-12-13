@@ -3,6 +3,7 @@ import wx
 from components.Header import CustomHeader
 from components.SettingNav import SettingNav
 from tabs.setting.components.Hardware import Hardware
+# from tabs.setting.components.AI import AI
 
 
 class SettingTab():
@@ -30,9 +31,4 @@ class SettingTab():
 
     def GetObject(self):
         return self.body_panel
-    def startButton_changeState(self, event):
-        self.stopButton.onSelect(None)
-        self.startButton.onDisable(None)
-    def stopButton_changeState(self, event):
-        self.startButton.onSelect(None)
-        self.stopButton.onDisable(None)
+   
