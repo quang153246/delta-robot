@@ -40,10 +40,7 @@ class VideoFrame():
 
     def NextFrame(self, event):
         ret, frame = self.cap.read()
-        
-        # height, width, layers = frame.shape
-        # print("Width, Height of frameeeee:", width, height)
-
+    
         if ret:
             frame = cv2.flip(frame, 1)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
