@@ -34,3 +34,5 @@ class CustomHeader():
 
     def GetObject(self):
         return self.panel
+    def Set_Label(self, label):
+        self.panel_text.SetLabel(label)
