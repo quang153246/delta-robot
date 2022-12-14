@@ -28,18 +28,18 @@ class Monitor():
         # ----Video Box-----
         # Get video stream from camera
 
-        self.video_box = wx.Panel(self.monitor_tab)
-        self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
+        # self.video_box = wx.Panel(self.monitor_tab)
+        # self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 
-        video_box_layout_h = wx.BoxSizer(wx.HORIZONTAL)
-        video_box_layout_v = wx.BoxSizer(wx.VERTICAL)
+        # video_box_layout_h = wx.BoxSizer(wx.HORIZONTAL)
+        # video_box_layout_v = wx.BoxSizer(wx.VERTICAL)
 
-        self.stream_video = VideoFrame(self.video_box, 30).GetObject()
+        # self.stream_video = VideoFrame(self.video_box, 30).GetObject()
 
-        video_box_layout_h.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
-        video_box_layout_v.Add(video_box_layout_h, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
-        self.video_box.SetSizer(video_box_layout_v)
-        self.video_box.Layout()
+        # video_box_layout_h.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
+        # video_box_layout_v.Add(video_box_layout_h, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
+        # self.video_box.SetSizer(video_box_layout_v)
+        # self.video_box.Layout()
 
 
 
@@ -60,7 +60,7 @@ class Monitor():
         # Layout for box of all components
         monitor_tab_layout = wx.BoxSizer(wx.VERTICAL)
         monitor_tab_layout.Add(self.time_box, 1 , wx.EXPAND|wx.ALL, 0)
-        monitor_tab_layout.Add(self.video_box, 6 , wx.EXPAND|wx.ALL, 0)
+        # monitor_tab_layout.Add(self.video_box, 6 , wx.EXPAND|wx.ALL, 0)
         monitor_tab_layout.Add(self.result_box, 1 , wx.EXPAND|wx.LEFT|wx.RIGHT, 10)
 
         self.monitor_tab.SetSizer(monitor_tab_layout)

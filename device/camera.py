@@ -45,9 +45,9 @@ class CameraControl():
         if not self.is_available():
             return None
 
-        self.frame = self.camera.read()
+        result, self.frame = self.camera.read()
         
-        if self.frame == None:
+        if result == False:
             return None
 
         # Change frame color

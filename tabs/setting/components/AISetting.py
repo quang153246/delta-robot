@@ -20,24 +20,24 @@ class AISetting():
         # self.video_box = VideoFrame(self.content, 30).GetObject()
 
         
-        self.video_box = wx.Panel(self.content)
-        self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
+        # self.video_box = wx.Panel(self.content)
+        # self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 
-        video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
-        video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
+        # video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
+        # video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
 
-        self.stream_video = VideoFrame(self.video_box, 30).GetObject()
+        # self.stream_video = VideoFrame(self.video_box, 30).GetObject()
 
-        video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,32)
-        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,360 )
-        self.video_box.SetSizer(video_box_layout_sub)
-        self.video_box.Layout()
+        # video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,32)
+        # video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,360 )
+        # self.video_box.SetSizer(video_box_layout_sub)
+        # self.video_box.Layout()
 
 
         content_layout_v = wx.BoxSizer(wx.VERTICAL)
         content_layout_v.Add(self.note, 1, wx.EXPAND|wx.ALL, 0)
         content_layout_v.Add(self.video_label, 1, wx.EXPAND|wx.ALL, 0)
-        content_layout_v.Add(self.video_box, 8, wx.EXPAND|wx.ALL, 0)
+        # content_layout_v.Add(self.video_box, 8, wx.EXPAND|wx.ALL, 0)
 
         self.content.SetSizer(content_layout_v)
         self.content.Layout()

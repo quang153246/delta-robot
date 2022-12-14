@@ -98,7 +98,7 @@ class Hardware():
         # self.video_box.Layout()
 
 
-        self.camera_control = CameraControl()
+        self.camera_logitech = CameraControl()
 
 
         # Layout for robot side
@@ -120,7 +120,7 @@ class Hardware():
         camera_tab_layout = wx.BoxSizer(wx.VERTICAL)
         camera_tab_layout.Add(self.camera_header, 1, wx.EXPAND|wx.TOP, 0)
         camera_tab_layout.Add(self.camera_control, 2, wx.EXPAND|wx.LEFT|wx.RIGHT, 20)
-        camera_tab_layout.Add(self.video_box, 10, wx.EXPAND|wx.ALL, 20)
+        # camera_tab_layout.Add(self.video_box, 10, wx.EXPAND|wx.ALL, 20)
        
         self.camera_tab.SetSizer(camera_tab_layout)
         self.camera_tab.Layout()
@@ -138,10 +138,12 @@ class Hardware():
 
     def GetObject(self):
         return self.content_panel
-    def toggle_camera(self):
-        if(self.camera_control.is_available() == False):
-            self.camera_control.open_connection()
+    def toggle_camera(self, evt):
+        if(self.camera_logitech.is_available() == False):
+            print('hi')
+            self.camera_logitech.open_connection()
+            self.camera_logitech.get_frame()
         else:
-            self.camera_control.close_connection()
-        print("Status: ",self.camera_control.is_available())
+            self.camera_logitech.close_connection()
+        print("Status: ",self.camera_logitech.is_available())
 
