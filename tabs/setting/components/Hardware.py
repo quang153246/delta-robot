@@ -5,10 +5,12 @@ from components.Header import CustomHeader
 from components.VideoFrame import VideoFrame
 from components.Form import Form
 from device.camera import CameraControl
+import numpy as np
 
 class Hardware():
     def __init__(self, parent) -> None:
         self.parent = parent
+        self.camera_status = False
         self.__ui_colour = UIColour()
 
         self.content_panel = wx.Panel(self.parent)
@@ -60,17 +62,43 @@ class Hardware():
         self.camera_header = CustomHeader(self.camera_tab, "Camera", self.__ui_colour.BLACK, self.__ui_colour.WHITE).GetObject()
 
         self.camera_control = wx.Panel(self.camera_tab)
-        self.camera_connection_button = ToggleButton(self.camera_control, Title= "Connect to camera", SubTitle="Disconnect to camera" , BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16).GetObject()
+        self.camera_connection_button = ToggleButton(self.camera_control, Title= "Connect to camera", SubTitle="Disconnect to camera" , BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16)
         self.camera_connection_status = CustomHeader(self.camera_control, "Camera connection: ", self.__ui_colour.WHITE, self.__ui_colour.BLUE_MAIN).GetObject()
-        self.camera_connection_button.Bind(wx.EVT_BUTTON, self.toggle_camera)
+        self.camera_connection_button.GetObject().Bind(wx.EVT_BUTTON, self.toggle_camera)
 
         camera_control_layout = wx.BoxSizer(wx.HORIZONTAL)
-        camera_control_layout.Add(self.camera_connection_button, 2 , wx.EXPAND | wx.TOP, 20)
+        camera_control_layout.Add(self.camera_connection_button.GetObject(), 2 , wx.EXPAND | wx.TOP, 20)
         camera_control_layout.Add(self.camera_connection_status, 4 , wx.EXPAND | wx.TOP, 20)
         self.camera_control.SetSizer(camera_control_layout)
         self.camera_control.Layout()
 
         #camera
+        self.camera_logitech = CameraControl()
+
+        self.video_box = wx.Panel(self.camera_tab)
+        self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
+
+        self.stream_video = VideoFrame(self.video_box)
+
+        
+
+        self.timer = wx.Timer(self.stream_video.GetObject())
+        self.timer.Start(int(1000.0 / 30.0))
+        self.stream_video.GetObject().Bind(wx.EVT_TIMER, self.NextFrame)
+
+        frame = np.zeros([self.stream_video.frame_height, self.stream_video.frame_width], dtype=int)        
+        self.bmp = wx.Bitmap.FromBuffer(self.stream_video.frame_width, self.stream_video.frame_height, frame)
+
+        self.stream_video.GetObject().Bind(wx.EVT_PAINT, self.OnPaint)
+
+        video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
+        video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
+
+        video_box_layout.Add(self.stream_video.GetObject(), 1, wx.EXPAND|wx.TOP|wx.BOTTOM,32)
+        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,360 )
+        self.video_box.SetSizer(video_box_layout_sub)
+        self.video_box.Layout()
+
         # self.video_box = wx.Panel(self.camera_tab)
         # self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 
@@ -98,7 +126,6 @@ class Hardware():
         # self.video_box.Layout()
 
 
-        self.camera_logitech = CameraControl()
 
 
         # Layout for robot side
@@ -120,7 +147,7 @@ class Hardware():
         camera_tab_layout = wx.BoxSizer(wx.VERTICAL)
         camera_tab_layout.Add(self.camera_header, 1, wx.EXPAND|wx.TOP, 0)
         camera_tab_layout.Add(self.camera_control, 2, wx.EXPAND|wx.LEFT|wx.RIGHT, 20)
-        # camera_tab_layout.Add(self.video_box, 10, wx.EXPAND|wx.ALL, 20)
+        camera_tab_layout.Add(self.video_box, 10, wx.EXPAND|wx.ALL, 20)
        
         self.camera_tab.SetSizer(camera_tab_layout)
         self.camera_tab.Layout()
@@ -140,10 +167,32 @@ class Hardware():
         return self.content_panel
     def toggle_camera(self, evt):
         if(self.camera_logitech.is_available() == False):
-            print('hi')
+            # self.camera_connection_button.onDisable(None)
             self.camera_logitech.open_connection()
-            self.camera_logitech.get_frame()
+            self.camera_status = True
+            # self.camera_logitech.get_frame()
         else:
+            # self.camera_connection_button.onSelect(None)
             self.camera_logitech.close_connection()
+            self.camera_status = False
+
         print("Status: ",self.camera_logitech.is_available())
+
+    def NextFrame(self, event):
+
+        # print("next frame")
+        if self.camera_status == True:
+            frame = self.camera_logitech.get_frame()
+            print("Frameeee:",frame)
+            # buffer = self.stream_video.GetBuffer()
+
+            self.bmp.CopyFromBuffer(frame)
+            self.stream_video.GetObject().Refresh()
+            self.content_panel.Layout()
+
+    def OnPaint(self, evt):
+        dc = wx.BufferedPaintDC(self.stream_video.GetObject())
+        dc.DrawBitmap(self.bmp, 0, 0)
+
+        
 

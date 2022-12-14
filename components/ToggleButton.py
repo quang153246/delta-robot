@@ -40,12 +40,15 @@ class ToggleButton():
         self.button.Bind(wx.EVT_MOTION, self.onMove)
 
     def onDisable(self, event):
+        print("on disable")
+
         self.button_state == True
         self.button.SetBackgroundColour(self.toggle_backGround)
         if(self.toggle_label != None):
                 self.button.SetLabel(self.toggle_label)
 
     def onSelect(self, event):
+        print("on select")
         self.button_state == False
         if(self.toggle_label != None):
             self.button.SetLabel(self.init_label)
