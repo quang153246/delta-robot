@@ -4,6 +4,7 @@ from components.ToggleButton import ToggleButton
 from components.Header import CustomHeader
 from components.VideoFrame import VideoFrame
 from components.Form import Form
+from device.camera import CameraControl
 
 class Hardware():
     def __init__(self, parent) -> None:
@@ -61,6 +62,8 @@ class Hardware():
         self.camera_control = wx.Panel(self.camera_tab)
         self.camera_connection_button = ToggleButton(self.camera_control, Title= "Connect to camera", SubTitle="Disconnect to camera" , BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16).GetObject()
         self.camera_connection_status = CustomHeader(self.camera_control, "Camera connection: ", self.__ui_colour.WHITE, self.__ui_colour.BLUE_MAIN).GetObject()
+        self.camera_connection_button.Bind(wx.EVT_BUTTON, self.toggle_camera)
+
         camera_control_layout = wx.BoxSizer(wx.HORIZONTAL)
         camera_control_layout.Add(self.camera_connection_button, 2 , wx.EXPAND | wx.TOP, 20)
         camera_control_layout.Add(self.camera_connection_status, 4 , wx.EXPAND | wx.TOP, 20)
@@ -81,20 +84,21 @@ class Hardware():
         # self.video_box.SetSizer(video_box_layout_sub)
         # self.video_box.Layout()
 
-        self.video_box = wx.Panel(self.camera_tab)
-        self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
+        # self.video_box = wx.Panel(self.camera_tab)
+        # self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
 
-        video_box_layout_h = wx.BoxSizer(wx.HORIZONTAL)
-        video_box_layout_v = wx.BoxSizer(wx.VERTICAL)
+        # video_box_layout_h = wx.BoxSizer(wx.HORIZONTAL)
+        # video_box_layout_v = wx.BoxSizer(wx.VERTICAL)
 
-        self.stream_video = VideoFrame(self.video_box, 30).GetObject()
+        # self.stream_video = VideoFrame(self.video_box, 30).GetObject()
 
-        video_box_layout_h.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
-        video_box_layout_v.Add(video_box_layout_h, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
-        self.video_box.SetSizer(video_box_layout_v)
-        self.video_box.Layout()
+        # video_box_layout_h.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
+        # video_box_layout_v.Add(video_box_layout_h, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
+        # self.video_box.SetSizer(video_box_layout_v)
+        # self.video_box.Layout()
 
 
+        self.camera_control = CameraControl()
 
 
         # Layout for robot side
@@ -134,3 +138,10 @@ class Hardware():
 
     def GetObject(self):
         return self.content_panel
+    def toggle_camera(self):
+        if(self.camera_control.is_available() == False):
+            self.camera_control.open_connection()
+        else:
+            self.camera_control.close_connection()
+        print("Status: ",self.camera_control.is_available())
+
