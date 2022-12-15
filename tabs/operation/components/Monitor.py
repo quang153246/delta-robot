@@ -61,7 +61,7 @@ class Monitor():
         monitor_tab_layout = wx.BoxSizer(wx.VERTICAL)
         monitor_tab_layout.Add(self.time_box, 1 , wx.EXPAND|wx.ALL, 0)
         # monitor_tab_layout.Add(self.video_box, 6 , wx.EXPAND|wx.ALL, 0)
-        monitor_tab_layout.Add(self.result_box, 1 , wx.EXPAND|wx.LEFT|wx.RIGHT, 10)
+        monitor_tab_layout.Add(self.result_box, 10 , wx.EXPAND|wx.LEFT|wx.RIGHT, 10)
 
         self.monitor_tab.SetSizer(monitor_tab_layout)
         self.monitor_tab.Layout()

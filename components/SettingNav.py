@@ -27,9 +27,9 @@ class SettingNav():
         
         # Layout navigation panel.
         layout = wx.BoxSizer(wx.HORIZONTAL)
-        layout.Add(self.hardware_check_button.GetObject(), 7, wx.EXPAND|wx.RIGHT, 10)
-        layout.Add(self.AI_setting_button.GetObject(), 7, wx.EXPAND|wx.RIGHT, 10)
-        layout.Add(self.create_mission_button.GetObject(), 7, wx.EXPAND|wx.RIGHT)
+        layout.Add(self.hardware_check_button.GetObject(), 1, wx.EXPAND|wx.RIGHT, 10)
+        layout.Add(self.AI_setting_button.GetObject(), 1, wx.EXPAND|wx.RIGHT, 10)
+        layout.Add(self.create_mission_button.GetObject(), 1, wx.EXPAND|wx.RIGHT)
         
         self.nav_panel.SetSizer(layout)
         self.nav_panel.Layout()

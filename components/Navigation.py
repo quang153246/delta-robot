@@ -27,14 +27,14 @@ class Navigation():
         # Create logo.
         self.logo_panel = wx.Panel(self.navigation_panel)
         logo_width, logo_height = self.logo_panel.GetSize()
-        self.logo_image = wx.Image(self.logoPath).Scale(int(logo_width)*7, int(logo_height)*5, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
+        self.logo_image = wx.Image(self.logoPath).Scale(int(logo_width)*7, int(logo_height)*4, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
         self.logo_bitmap = wx.StaticBitmap(self.logo_panel)
         self.logo_bitmap.SetBitmap(self.logo_image)
         
         # Layout navigation panel.
         navigation_layout = wx.BoxSizer(wx.HORIZONTAL)
-        navigation_layout.Add(self.operation_button.GetObject(), 7, wx.EXPAND|wx.RIGHT, 10)
-        navigation_layout.Add(self.settings_button.GetObject(), 7, wx.EXPAND|wx.RIGHT, 10)
+        navigation_layout.Add(self.operation_button.GetObject(), 7, wx.EXPAND|wx.RIGHT, 5)
+        navigation_layout.Add(self.settings_button.GetObject(), 7, wx.EXPAND|wx.RIGHT, 5)
         navigation_layout.Add(self.logo_panel, 1, wx.EXPAND|wx.RIGHT, 1)
         
         self.navigation_panel.SetSizer(navigation_layout)

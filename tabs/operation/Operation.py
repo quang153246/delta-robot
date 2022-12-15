@@ -33,14 +33,14 @@ class OperationTab():
 
 
         # Layout for content of page (control tab && monitor tab).
-        sub_body_layout = wx.BoxSizer(wx.HORIZONTAL)
-        sub_body_layout.Add(self.control_tab, 1, wx.EXPAND|wx.ALL, 1)
-        sub_body_layout.Add(self.monitor_tab, 2, wx.EXPAND|wx.ALL, 1)
+        content_layout = wx.BoxSizer(wx.HORIZONTAL)
+        content_layout.Add(self.control_tab, 1, wx.EXPAND|wx.ALL, 1)
+        content_layout.Add(self.monitor_tab, 2, wx.EXPAND|wx.ALL, 1)
 
         # Layout for entire page (header mode + content field).
         body_layout = wx.BoxSizer(wx.VERTICAL)
         body_layout.Add(self.mode_header, 1, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.TOP, 1)
-        body_layout.Add(sub_body_layout, 10, wx.EXPAND|wx.ALL, 1)
+        body_layout.Add(content_layout, 10, wx.EXPAND|wx.ALL, 1)
         self.body_panel.SetSizer(body_layout)
         self.body_panel.Layout()
 

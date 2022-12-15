@@ -10,7 +10,7 @@ class VideoFrame():
         self.frame_width = 640
         self.frame_height = 480
         print("Width, Height of frameeeee:", self.frame_width, self.frame_height)
-        self.image_panel.SetSize((self.frame_width, self.frame_height))
+        # self.image_panel.SetSize((self.frame_width, self.frame_height))
         self.image_panel.SetBackgroundColour(UIColour().BLACK)
 
         # Change frane color and flip image

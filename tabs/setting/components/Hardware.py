@@ -20,7 +20,7 @@ class Hardware():
         #  different layout to create background for robot_tab
         self.robot_tab_background = wx.Panel(self.content_panel)
         self.robot_tab_background.SetBackgroundColour(self.__ui_colour.GRAY_DARK)
-        robot_tab_background_layout = wx.BoxSizer(wx.VERTICAL)
+        robot_tab_background_layout = wx.BoxSizer(wx.HORIZONTAL)
         
         self.robot_tab = wx.Panel(self.robot_tab_background)
         self.robot_tab.SetBackgroundColour(self.__ui_colour.WHITE)
@@ -45,9 +45,9 @@ class Hardware():
 
 
         self.robot_header = CustomHeader(self.robot_tab, "Robot", self.__ui_colour.BLACK, self.__ui_colour.WHITE).GetObject()
-        self.robot_connection_status = CustomHeader(self.robot_tab, "Robot connection: ", self.__ui_colour.WHITE, self.__ui_colour.BLUE_MAIN).GetObject()
-        self.robot_connection_button = ToggleButton(self.robot_tab, Title= "Connect to robot", SubTitle= "Disconnect to robot" , BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16).GetObject()
-        self.white_space = CustomHeader(self.robot_tab, " ", self.__ui_colour.WHITE, self.__ui_colour.BLUE_MAIN).GetObject()
+        self.robot_connection_status = CustomHeader(self.robot_tab, "Robot connection: OK", self.__ui_colour.WHITE, self.__ui_colour.BLUE_MAIN).GetObject()
+        self.robot_connection_button = ToggleButton(self.robot_tab, Title= "Connect to robot", SubTitle= "Disconnect to robot" , BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=14).GetObject()
+        self.white_space =wx.Panel(self.robot_tab)
         self.init_position_robot_button = ToggleButton(self.robot_tab, Title= "GO HOME", BackGround= self.__ui_colour.GREEN_MAIN, SubBackGround= self.__ui_colour.GREEN_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16).GetObject()
         self.position_setup_header = CustomHeader(self.robot_tab, "Move to point: ", self.__ui_colour.WHITE, self.__ui_colour.GREEN_MAIN).GetObject()
 
@@ -68,7 +68,7 @@ class Hardware():
 
         camera_control_layout = wx.BoxSizer(wx.HORIZONTAL)
         camera_control_layout.Add(self.camera_connection_button.GetObject(), 2 , wx.EXPAND | wx.TOP, 20)
-        camera_control_layout.Add(self.camera_connection_status.GetObject(), 4 , wx.EXPAND | wx.TOP, 20)
+        camera_control_layout.Add(self.camera_connection_status.GetObject(), 4 , wx.EXPAND | wx.TOP, 20) 
         self.camera_control.SetSizer(camera_control_layout)
         self.camera_control.Layout()
 
@@ -94,52 +94,23 @@ class Hardware():
         video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
         video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
 
-        video_box_layout.Add(self.stream_video.GetObject(), 1, wx.EXPAND|wx.TOP|wx.BOTTOM,32)
-        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,360 )
+        video_box_layout.Add(self.stream_video.GetObject(), 1, wx.EXPAND|wx.TOP|wx.BOTTOM,0)
+        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,0 )
         self.video_box.SetSizer(video_box_layout_sub)
         self.video_box.Layout()
 
-        # self.video_box = wx.Panel(self.camera_tab)
-        # self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
-
-        # video_box_layout = wx.BoxSizer(wx.HORIZONTAL)
-        # video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
-
-        # self.stream_video = VideoFrame(self.video_box, 30).GetObject()
-
-        # video_box_layout.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,32)
-        # video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,360 )
-        # self.video_box.SetSizer(video_box_layout_sub)
-        # self.video_box.Layout()
-
-        # self.video_box = wx.Panel(self.camera_tab)
-        # self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
-
-        # video_box_layout_h = wx.BoxSizer(wx.HORIZONTAL)
-        # video_box_layout_v = wx.BoxSizer(wx.VERTICAL)
-
-        # self.stream_video = VideoFrame(self.video_box, 30).GetObject()
-
-        # video_box_layout_h.Add(self.stream_video, 1, wx.EXPAND|wx.TOP|wx.BOTTOM,100)
-        # video_box_layout_v.Add(video_box_layout_h, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,320 )
-        # self.video_box.SetSizer(video_box_layout_v)
-        # self.video_box.Layout()
-
-
-
-
         # Layout for robot side
         robot_tab_layout = wx.BoxSizer(wx.VERTICAL)
-        robot_tab_layout.Add(self.robot_header, 1, wx.EXPAND|wx.TOP, 0)
-        robot_tab_layout.Add(self.robot_connection_status, 2, wx.EXPAND|wx.ALL, 0)
-        robot_tab_layout.Add(self.robot_connection_button, 2,  wx.EXPAND|wx.LEFT|wx.RIGHT, 15)
-        robot_tab_layout.Add(self.white_space, 1, wx.EXPAND|wx.BOTTOM, 0)
-        robot_tab_layout.Add(self.init_position_robot_button, 2, wx.EXPAND|wx.LEFT|wx.RIGHT, 15)
-        robot_tab_layout.Add(self.position_setup_header, 1, wx.EXPAND|wx.ALL, 0)
-        robot_tab_layout.Add(self.x_form, 1, wx.ALIGN_CENTER, 0)
-        robot_tab_layout.Add(self.y_form, 1, wx.ALIGN_CENTER, 0)
-        robot_tab_layout.Add(self.z_form, 1, wx.ALIGN_CENTER, 0)
-        robot_tab_layout.Add(self.execute_button, 2, wx.EXPAND|wx.ALL, 20)
+        robot_tab_layout.Add(self.robot_header, 3, wx.EXPAND|wx.TOP, 0)
+        robot_tab_layout.Add(self.robot_connection_status, 4, wx.EXPAND|wx.ALL, 0)
+        robot_tab_layout.Add(self.robot_connection_button, 6,  wx.EXPAND|wx.LEFT|wx.RIGHT, 15)
+        robot_tab_layout.Add(self.white_space, 1, wx.EXPAND)
+        robot_tab_layout.Add(self.init_position_robot_button, 6, wx.EXPAND|wx.LEFT|wx.RIGHT, 15)
+        robot_tab_layout.Add(self.position_setup_header, 4, wx.EXPAND|wx.TOP, 10)
+        robot_tab_layout.Add(self.x_form, 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
+        robot_tab_layout.Add(self.y_form, 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
+        robot_tab_layout.Add(self.z_form, 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
+        robot_tab_layout.Add(self.execute_button, 6, wx.EXPAND|wx.ALL, 10)
         self.robot_tab.SetSizer(robot_tab_layout)
         self.robot_tab.Layout()
 
@@ -147,7 +118,7 @@ class Hardware():
         camera_tab_layout = wx.BoxSizer(wx.VERTICAL)
         camera_tab_layout.Add(self.camera_header, 1, wx.EXPAND|wx.TOP, 0)
         camera_tab_layout.Add(self.camera_control, 2, wx.EXPAND|wx.LEFT|wx.RIGHT, 20)
-        camera_tab_layout.Add(self.video_box, 10, wx.EXPAND|wx.ALL, 20)
+        camera_tab_layout.Add(self.video_box, 10, wx.EXPAND|wx.ALL, 0)
        
         self.camera_tab.SetSizer(camera_tab_layout)
         self.camera_tab.Layout()
