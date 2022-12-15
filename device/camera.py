@@ -55,6 +55,16 @@ class CameraControl():
         return self.frame
 
     
+    def flip_frame(self, input_frame):
+        '''Flip frame.'''
+
+        if input_frame is None:
+            return None
+
+        output_frame = cv2.flip(input_frame, 1)
+        return output_frame
+
+
     def get_frame_size(self):
         '''Return (frame width, frame height). Otherwise, return None.'''
 

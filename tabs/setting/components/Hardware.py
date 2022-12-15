@@ -67,8 +67,8 @@ class Hardware():
         self.camera_connection_button.GetObject().Bind(wx.EVT_BUTTON, self.toggle_camera)
 
         camera_control_layout = wx.BoxSizer(wx.HORIZONTAL)
-        camera_control_layout.Add(self.camera_connection_button.GetObject(), 2 , wx.EXPAND | wx.TOP, 20)
-        camera_control_layout.Add(self.camera_connection_status.GetObject(), 4 , wx.EXPAND | wx.TOP, 20) 
+        camera_control_layout.Add(self.camera_connection_button.GetObject(), 2 , wx.EXPAND | wx.LEFT, 70)
+        camera_control_layout.Add(self.camera_connection_status.GetObject(), 4 , wx.EXPAND | wx.LEFT, 90) 
         self.camera_control.SetSizer(camera_control_layout)
         self.camera_control.Layout()
 
@@ -76,7 +76,7 @@ class Hardware():
         self.camera_logitech = CameraControl()
 
         self.video_box = wx.Panel(self.camera_tab)
-        self.video_box.SetBackgroundColour(self.__ui_colour.GRAY_LIGHT)
+        self.video_box.SetBackgroundColour(self.__ui_colour.WHITE)
 
         self.stream_video = VideoFrame(self.video_box)
 
@@ -95,7 +95,7 @@ class Hardware():
         video_box_layout_sub = wx.BoxSizer(wx.VERTICAL)
 
         video_box_layout.Add(self.stream_video.GetObject(), 1, wx.EXPAND|wx.TOP|wx.BOTTOM,0)
-        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT,0 )
+        video_box_layout_sub.Add(video_box_layout, 1, wx.EXPAND|wx.LEFT|wx.RIGHT, 70)
         self.video_box.SetSizer(video_box_layout_sub)
         self.video_box.Layout()
 
@@ -117,8 +117,8 @@ class Hardware():
         # Layout for Camera side
         camera_tab_layout = wx.BoxSizer(wx.VERTICAL)
         camera_tab_layout.Add(self.camera_header, 1, wx.EXPAND|wx.TOP, 0)
-        camera_tab_layout.Add(self.camera_control, 2, wx.EXPAND|wx.LEFT|wx.RIGHT, 20)
-        camera_tab_layout.Add(self.video_box, 10, wx.EXPAND|wx.ALL, 0)
+        camera_tab_layout.Add(self.camera_control, 2, wx.EXPAND|wx.TOP, 20)
+        camera_tab_layout.Add(self.video_box, 10, wx.EXPAND|wx.TOP, 20)
        
         self.camera_tab.SetSizer(camera_tab_layout)
         self.camera_tab.Layout()
@@ -141,11 +141,12 @@ class Hardware():
         if(self.camera_logitech.is_available() == False):
             self.camera_connection_button.onDisable(None)
             self.camera_logitech.open_connection()
-            self.camera_status = True
+            # self.camera_status = True
         else:
             self.camera_connection_button.onSelect(None)
             self.camera_logitech.close_connection()
-            self.camera_status = False
+            # self.camera_status = False
+        self.camera_status = self.camera_logitech.is_available()
         self.camera_connection_status.Set_Label("Camera connection: " + str(self.camera_status))
         print("Status: ",self.camera_logitech.is_available())
 
@@ -153,6 +154,7 @@ class Hardware():
 
         if self.camera_status == True:
             frame = self.camera_logitech.get_frame()
+            frame = self.camera_logitech.flip_frame(frame)
             print("Frameeee:",frame)
             # buffer = self.stream_video.GetBuffer()
 

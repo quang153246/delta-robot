@@ -22,7 +22,7 @@ class SettingTab():
         # Gather all components (Header mode, header tab, content)
         body_layout = wx.BoxSizer(wx.VERTICAL)
         body_layout.Add(self.mode_header, 1,  wx.EXPAND|wx.ALL, 0)
-        body_layout.Add(self.tab_header, 10,  wx.EXPAND|wx.ALL, 0)
+        body_layout.Add(self.tab_header, 15,  wx.EXPAND|wx.ALL, 0)
         
         self.body_panel.SetSizer(body_layout)
         self.body_panel.Layout()

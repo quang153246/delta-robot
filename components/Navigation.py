@@ -27,7 +27,7 @@ class Navigation():
         # Create logo.
         self.logo_panel = wx.Panel(self.navigation_panel)
         logo_width, logo_height = self.logo_panel.GetSize()
-        self.logo_image = wx.Image(self.logoPath).Scale(int(logo_width)*7, int(logo_height)*4, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
+        self.logo_image = wx.Image(self.logoPath).Scale(int(logo_width)*5, int(logo_height)*3, wx.IMAGE_QUALITY_HIGH).ConvertToBitmap()
         self.logo_bitmap = wx.StaticBitmap(self.logo_panel)
         self.logo_bitmap.SetBitmap(self.logo_image)
         
