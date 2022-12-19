@@ -4,9 +4,9 @@
 This app is built in python using wxPython platfom and opencv-python library.
 
 ## Prerequisites
-### python 3.10.4 (v3.8.10 for jetson-xavier)
-### wxPython 4.2.0
-### opencv-python 4.6.0
+- python 3.10.4 (v3.8.10 for jetson-xavier)
+- wxPython 4.2.0
+- opencv-python 4.6.0
 
 
 ## Use
