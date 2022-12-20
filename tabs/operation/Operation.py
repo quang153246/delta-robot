@@ -8,6 +8,7 @@ from components.Header import CustomHeader
 class OperationTab():
     def __init__(self, parent) -> None:
         self.parent = parent
+        self.current_mission = None
 
         #define custom color palette
         self.__ui_colour = UIColour()

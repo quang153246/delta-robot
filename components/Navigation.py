@@ -70,13 +70,11 @@ class Navigation():
 
     # When click one of two buttons, the clicked button will be highlight and other will be disable
     def operation_button_changeState(self, event):
-        print("operation")
         self.operation_button.onSelect(None)
         self.settings_button.onDisable(None)
         self.Show(self.operation)
 
     def settings_button_changeState(self, event):
-        print("setting")
         self.settings_button.onSelect(None)
         self.operation_button.onDisable(None)
         self.Show(self.setting)

@@ -45,23 +45,30 @@ class AISetting():
         #Configuration
         self.configuration = wx.Panel(self.panel)
         self.select_model_label = CustomHeader(self.configuration, "Step 1:", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 15, False).GetObject()
-        self.select_model_button = ToggleButton(self.configuration, Title= "Select model", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14, Effect=True).GetObject()
+        self.select_model_button = ToggleButton(self.configuration, Title= "Select model", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14)
         self.adjust_frame_label = CustomHeader(self.configuration, "Step 2:", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 15, False).GetObject()
-        self.adjust_frame_button = ToggleButton(self.configuration, Title= "Adjust frame", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14).GetObject()
+        self.adjust_frame_button = ToggleButton(self.configuration, Title= "Adjust frame", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14)
         self.move_arm_label = CustomHeader(self.configuration, "Step 3:", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 15, False).GetObject()
-        self.move_arm_button = ToggleButton(self.configuration, Title= "Move arm", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14).GetObject()
+        self.move_arm_button = ToggleButton(self.configuration, Title= "Move arm", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14)
         self.confirm_obj_label = CustomHeader(self.configuration, "Step 4:", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 15, False).GetObject()
-        self.confirm_obj_button = ToggleButton(self.configuration, Title= "Confirm object position", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14).GetObject()
+        self.confirm_obj_button = ToggleButton(self.configuration, Title= "Confirm object position", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14)
+
+        #Bind event for buttons
+        self.select_model_button.GetObject().Bind(wx.EVT_BUTTON, self.onSelectModel)
+        self.adjust_frame_button.GetObject().Bind(wx.EVT_BUTTON, self.onAdjustFrame)
+        self.move_arm_button.GetObject().Bind(wx.EVT_BUTTON, self.onMoveArm)
+        self.confirm_obj_button.GetObject().Bind(wx.EVT_BUTTON, self.onConfirm)
+
 
         configuration_layout =wx.BoxSizer(wx.VERTICAL)
         configuration_layout.Add(self.select_model_label, 1 , wx.EXPAND|wx.ALL, 0)
-        configuration_layout.Add(self.select_model_button, 1 , wx.EXPAND|wx.ALL, 0)
+        configuration_layout.Add(self.select_model_button.GetObject(), 1 , wx.EXPAND|wx.ALL, 0)
         configuration_layout.Add(self.adjust_frame_label, 1 , wx.EXPAND|wx.ALL, 0)
-        configuration_layout.Add(self.adjust_frame_button, 1 , wx.EXPAND|wx.ALL, 0)
+        configuration_layout.Add(self.adjust_frame_button.GetObject(), 1 , wx.EXPAND|wx.ALL, 0)
         configuration_layout.Add(self.move_arm_label, 1 , wx.EXPAND|wx.ALL, 0)
-        configuration_layout.Add(self.move_arm_button, 1 , wx.EXPAND|wx.ALL, 0)
+        configuration_layout.Add(self.move_arm_button.GetObject(), 1 , wx.EXPAND|wx.ALL, 0)
         configuration_layout.Add(self.confirm_obj_label, 1 , wx.EXPAND|wx.ALL, 0)
-        configuration_layout.Add(self.confirm_obj_button, 1 , wx.EXPAND|wx.ALL, 0)
+        configuration_layout.Add(self.confirm_obj_button.GetObject(), 1 , wx.EXPAND|wx.ALL, 0)
 
         self.configuration.SetSizer(configuration_layout)
         self.configuration.Layout()
@@ -76,3 +83,11 @@ class AISetting():
 
     def GetObject(self):
         return self.panel
+    def onSelectModel(self, event):
+        print("select model")
+    def onAdjustFrame(self, event):
+        print("Adjust Frame")
+    def onMoveArm(self, event):
+        print("Move Arm")
+    def onConfirm(self, event):
+        print("Confirm")

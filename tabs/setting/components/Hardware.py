@@ -46,18 +46,23 @@ class Hardware():
 
         self.robot_header = CustomHeader(self.robot_tab, "Robot", self.__ui_colour.BLACK, self.__ui_colour.WHITE).GetObject()
         self.robot_connection_status = CustomHeader(self.robot_tab, "Robot connection: OK", self.__ui_colour.WHITE, self.__ui_colour.BLUE_MAIN).GetObject()
-        self.robot_connection_button = ToggleButton(self.robot_tab, Title= "Connect to robot", SubTitle= "Disconnect to robot" , BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=14).GetObject()
+        self.robot_connection_button = ToggleButton(self.robot_tab, Title= "Connect to robot", SubTitle= "Disconnect to robot" , BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=14)
         self.white_space =wx.Panel(self.robot_tab)
-        self.init_position_robot_button = ToggleButton(self.robot_tab, Title= "GO HOME", BackGround= self.__ui_colour.GREEN_MAIN, SubBackGround= self.__ui_colour.GREEN_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16).GetObject()
+        self.init_position_robot_button = ToggleButton(self.robot_tab, Title= "GO HOME", BackGround= self.__ui_colour.GREEN_MAIN, SubBackGround= self.__ui_colour.GREEN_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16)
         self.position_setup_header = CustomHeader(self.robot_tab, "Move to point: ", self.__ui_colour.WHITE, self.__ui_colour.GREEN_MAIN).GetObject()
 
+        #Bind event for button
+        self.robot_connection_button.GetObject().Bind(wx.EVT_BUTTON, self.StartConnectToRobot)
+        self.init_position_robot_button.GetObject().Bind(wx.EVT_BUTTON, self.InitPosition)
+
         #Form
-        self.x_form = Form(self.robot_tab, "X: ", self.__ui_colour.BLACK, "x_value").GetObject()
-        self.y_form = Form(self.robot_tab, "Y: ", self.__ui_colour.BLACK, "y_value").GetObject()
-        self.z_form = Form(self.robot_tab, "Z: ", self.__ui_colour.BLACK, "z_value").GetObject()
+        self.x_form = Form(self.robot_tab, "X: ", self.__ui_colour.BLACK, "x_value")
+        self.y_form = Form(self.robot_tab, "Y: ", self.__ui_colour.BLACK, "y_value")
+        self.z_form = Form(self.robot_tab, "Z: ", self.__ui_colour.BLACK, "z_value")
 
 
-        self.execute_button = ToggleButton(self.robot_tab, Title= "Execute", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.BLUE_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16).GetObject()
+        self.execute_button = ToggleButton(self.robot_tab, Title= "Execute", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.BLUE_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16)
+        self.execute_button.GetObject().Bind(wx.EVT_BUTTON, self.MoveRobotToSpecificCoordinates)
 
         self.camera_header = CustomHeader(self.camera_tab, "Camera", self.__ui_colour.BLACK, self.__ui_colour.WHITE).GetObject()
 
@@ -65,6 +70,8 @@ class Hardware():
         self.camera_connection_button = ToggleButton(self.camera_control, Title= "Connect to camera", SubTitle="Disconnect to camera" , BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround= self.__ui_colour.GRAY_MAIN, TextColor= self.__ui_colour.WHITE, State= False, TextSize=16)
         self.camera_connection_status = CustomHeader(self.camera_control, "Camera connection: " + str(self.camera_status), self.__ui_colour.WHITE, self.__ui_colour.BLUE_MAIN)
         self.camera_connection_button.GetObject().Bind(wx.EVT_BUTTON, self.toggle_camera)
+
+
 
         camera_control_layout = wx.BoxSizer(wx.HORIZONTAL)
         camera_control_layout.Add(self.camera_connection_button.GetObject(), 2 , wx.EXPAND | wx.LEFT, 70)
@@ -103,14 +110,14 @@ class Hardware():
         robot_tab_layout = wx.BoxSizer(wx.VERTICAL)
         robot_tab_layout.Add(self.robot_header, 3, wx.EXPAND|wx.TOP, 0)
         robot_tab_layout.Add(self.robot_connection_status, 4, wx.EXPAND|wx.ALL, 0)
-        robot_tab_layout.Add(self.robot_connection_button, 6,  wx.EXPAND|wx.LEFT|wx.RIGHT, 15)
+        robot_tab_layout.Add(self.robot_connection_button.GetObject(), 6,  wx.EXPAND|wx.LEFT|wx.RIGHT, 15)
         robot_tab_layout.Add(self.white_space, 1, wx.EXPAND)
-        robot_tab_layout.Add(self.init_position_robot_button, 6, wx.EXPAND|wx.LEFT|wx.RIGHT, 15)
+        robot_tab_layout.Add(self.init_position_robot_button.GetObject(), 6, wx.EXPAND|wx.LEFT|wx.RIGHT, 15)
         robot_tab_layout.Add(self.position_setup_header, 4, wx.EXPAND|wx.TOP, 10)
-        robot_tab_layout.Add(self.x_form, 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
-        robot_tab_layout.Add(self.y_form, 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
-        robot_tab_layout.Add(self.z_form, 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
-        robot_tab_layout.Add(self.execute_button, 6, wx.EXPAND|wx.ALL, 10)
+        robot_tab_layout.Add(self.x_form.GetObject(), 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
+        robot_tab_layout.Add(self.y_form.GetObject(), 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
+        robot_tab_layout.Add(self.z_form.GetObject(), 4, wx.EXPAND | wx.TOP | wx.LEFT | wx.RIGHT, 5)
+        robot_tab_layout.Add(self.execute_button.GetObject(), 6, wx.EXPAND|wx.ALL, 10)
         self.robot_tab.SetSizer(robot_tab_layout)
         self.robot_tab.Layout()
 
@@ -165,6 +172,24 @@ class Hardware():
     def OnPaint(self, evt):
         dc = wx.BufferedPaintDC(self.stream_video.GetObject())
         dc.DrawBitmap(self.bmp, 0, 0)
+
+
+    def StartConnectToRobot(self, event):
+        if(self.robot_connection_button.getState()):
+            print("Stop Connect to Robot")
+            self.robot_connection_button.onSelect(None)
+        else:
+            print("Start Connect to Robot")
+            self.robot_connection_button.onDisable(None)
+
+        self.robot_connection_button.button_state = ~self.robot_connection_button.button_state
+
+    def InitPosition(self, event):
+        print("Init Robot's Position")
+
+    def MoveRobotToSpecificCoordinates(self, event):
+        print("Excute: ")
+        print("x: ", self.x_form.getValue(),"y: ", self.y_form.getValue(),"z: ", self.z_form.getValue())
 
         
 

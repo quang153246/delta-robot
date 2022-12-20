@@ -3,7 +3,7 @@ from colour import UIColour
 
 class BaseButton():
 
-    def __init__(self, parent, title, BackGround, TextColor, TextSize = None) -> None:
+    def __init__(self, parent, title, backGround, clickedColor, textColor, TextSize = None) -> None:
         self.__ui_colour = UIColour()
 
         if (TextSize == None):
@@ -12,8 +12,8 @@ class BaseButton():
         self.button_state = False
         self.parent = parent
         self.button = wx.Button(self.parent, style=wx.BORDER_NONE, label=title)
-        self.button.SetBackgroundColour(BackGround)
-        self.button.SetForegroundColour(TextColor)
+        self.button.SetBackgroundColour(backGround)
+        self.button.SetForegroundColour(textColor)
         self.button.SetFont(wx.Font(TextSize, wx.DECORATIVE, wx.NORMAL, wx.BOLD))
         self.button.Bind(wx.EVT_BUTTON, self.onToggle)
         # self.button.Bind(wx.EVT_MOTION, self.onMove)

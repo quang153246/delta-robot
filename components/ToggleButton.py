@@ -4,7 +4,7 @@ from colour import UIColour
 
 class ToggleButton():
 
-    def __init__(self, parent, Title, SubTitle = None , BackGround = None, SubBackGround = None , TextColor= None, SubTextColor = None, TextSize = None, State = False, Effect = False, callback = None) -> None:
+    def __init__(self, parent, Title, SubTitle = None , BackGround = None, SubBackGround = None , TextColor= None, SubTextColor = None, TextSize = None, State = False, callback = None) -> None:
         self.__ui_colour = UIColour()
         self.init_label = Title
         self.toggle_label = SubTitle
@@ -31,16 +31,11 @@ class ToggleButton():
             self.button.SetBackgroundColour(self.init_backGround)
         self.button.SetForegroundColour(self.init_textColor)
         self.button.SetFont(wx.Font(self.textSize, wx.DECORATIVE, wx.NORMAL, wx.BOLD))
-        # if (Effect==False):
         self.button.Bind(wx.EVT_BUTTON, self.onSelect)
-        self.button.Bind(wx.EVT_BUTTON, self.onToggle)
-        # else:
-        #     self.button.Bind(wx.EVT_BUTTON, self.onClick)
-            
         self.button.Bind(wx.EVT_MOTION, self.onMove)
+        self.button.Bind(wx.EVT_BUTTON, self.onToggle)
 
     def onDisable(self, event):
-        print("on disable")
 
         self.button_state == True
         self.button.SetBackgroundColour(self.toggle_backGround)
@@ -48,19 +43,11 @@ class ToggleButton():
                 self.button.SetLabel(self.toggle_label)
 
     def onSelect(self, event):
-        print("on select")
         self.button_state == False
         if(self.toggle_label != None):
             self.button.SetLabel(self.init_label)
         self.button.SetBackgroundColour(self.init_backGround)
         self.button.SetForegroundColour(self.init_textColor)
-
-    def onClick(self, event):
-        
-        self.button.SetBackgroundColour(self.toggle_backGround)
-        time.sleep(0.5)
-        self.button.SetBackgroundColour(self.init_backGround)
-
 
 
     def onMove(self, event):

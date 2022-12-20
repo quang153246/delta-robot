@@ -99,6 +99,8 @@ class Control():
     def startButton_changeState(self, event):
         self.stopButton.onSelect(None)
         self.startButton.onDisable(None)
+        print("Start Robot")
     def stopButton_changeState(self, event):
         self.startButton.onSelect(None)
         self.stopButton.onDisable(None)
+        print("Stop robot")

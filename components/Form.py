@@ -1,7 +1,6 @@
 import wx
 from components.Header import CustomHeader
 from colour import UIColour
-import wx.lib.masked as masked
 
 
 class Form():
@@ -24,3 +23,6 @@ class Form():
 
     def GetObject(self):
         return self.form
+        
+    def getValue(self):
+        return self.form_input.GetValue()

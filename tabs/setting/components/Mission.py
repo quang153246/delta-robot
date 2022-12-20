@@ -33,8 +33,8 @@ class Mission():
 
         
         self.create_btn_group = wx.Panel(self.mission_control)
-        self.save_btn = ToggleButton(self.create_btn_group, Title= "Save", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14, Effect=True).GetObject()
-        self.reset_btn = ToggleButton(self.create_btn_group, Title= "Reset", BackGround= self.__ui_colour.GRAY_MAIN, SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14, Effect=True).GetObject()
+        self.save_btn = ToggleButton(self.create_btn_group, Title= "Save", BackGround= self.__ui_colour.BLUE_MAIN, SubBackGround = self.__ui_colour.BLUE_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14,callback=self.onSave).GetObject()
+        self.reset_btn = ToggleButton(self.create_btn_group, Title= "Reset", BackGround= self.__ui_colour.GRAY_MAIN, SubBackGround = self.__ui_colour.GRAY_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14,callback=self.onReset).GetObject()
         create_btn_group_layout = wx.BoxSizer(wx.HORIZONTAL)
         create_btn_group_layout.Add(self.save_btn, 1 , wx.EXPAND| wx.ALL, 15)
         create_btn_group_layout.Add(self.reset_btn, 1 , wx.EXPAND| wx.ALL, 15)
@@ -42,8 +42,8 @@ class Mission():
         self.create_btn_group.Layout()
 
         self.action_btn_group = wx.Panel(self.mission_control)
-        self.update_btn = ToggleButton(self.action_btn_group, Title= "Update", BackGround= self.__ui_colour.GREEN_MAIN, SubBackGround = self.__ui_colour.GREEN_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14, Effect=True).GetObject()
-        self.delete_btn = ToggleButton(self.action_btn_group, Title= "Delete", BackGround= self.__ui_colour.RED_MAIN, SubBackGround = self.__ui_colour.RED_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14, Effect=True, callback=self.onClick).GetObject()
+        self.update_btn = ToggleButton(self.action_btn_group, Title= "Update", BackGround= self.__ui_colour.GREEN_MAIN, SubBackGround = self.__ui_colour.GREEN_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14,callback=self.onEdit).GetObject()
+        self.delete_btn = ToggleButton(self.action_btn_group, Title= "Delete", BackGround= self.__ui_colour.RED_MAIN, SubBackGround = self.__ui_colour.RED_DARK,TextColor= self.__ui_colour.white, State=False, TextSize=14, callback=self.onDelete).GetObject()
         action_btn_group_layout = wx.BoxSizer(wx.HORIZONTAL)
         action_btn_group_layout.Add(self.update_btn, 1 , wx.EXPAND | wx.ALL, 15)
         action_btn_group_layout.Add(self.delete_btn, 1 , wx.EXPAND | wx.ALL, 15)
@@ -72,8 +72,17 @@ class Mission():
     def GetObject(self):
         return self.panel
 
-    def onClick(self):
-        print("Clicked")
+    def onSave(self):
+        print("Save")
+
+    def onReset(self):
+        print("Reset")
+
+    def onEdit(self):
+        print("Edit")
+
+    def onDelete(self):
+        print("Delete")
 
 
 
