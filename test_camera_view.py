@@ -1,16 +1,17 @@
 import wx
 import cv2
+import nanocamera as nano
 
 class ImagePanel(wx.Panel):
 
     def __init__(self, parent, fps):
         super().__init__(parent)
         self.fps = fps
-        self.vs = cv2.VideoCapture(0)       
+        self.vs = camera = nano.Camera(camera_type=1, device_id=0, width=640, height=480, fps=15, enforce_fps=True)      
 
-        ret, frame = self.vs.read()
-        if not ret:
-            print("Error")
+        frame = self.vs.read()
+        # if not ret:
+        #     print("Error")
 
         # Set panel size = frame size
         frame_height, frame_width, layers = frame.shape
@@ -34,15 +35,16 @@ class ImagePanel(wx.Panel):
         dc.DrawBitmap(self.bmp, 0, 0)
 
     def NextFrame(self, event):
-        ret, frame = self.vs.read()
+        frame = self.vs.read()
         # height, width, layers = frame.shape
         # print("Width, Height of frameeeee:", width, height)
+        # print(self.vs.isReady())
 
-        if ret:
+        # if frame is not None:
 
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            self.bmp.CopyFromBuffer(frame)
-            self.Refresh()
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        self.bmp.CopyFromBuffer(frame)
+        self.Refresh()
 
 
 class MainFrame(wx.Frame):
@@ -51,7 +53,7 @@ class MainFrame(wx.Frame):
 
         super().__init__(None, title='User stream')
 
-        image_panel = ImagePanel(self, 30)
+        image_panel = ImagePanel(self, 10)
 
         img_panel_width, img_panel_height = image_panel.GetSize()
 

@@ -1,5 +1,5 @@
 # Use for Logitech camera.
-
+import nanocamera as nano
 import cv2
 
 class CameraControl():
@@ -20,13 +20,17 @@ class CameraControl():
         if self.camera == None:
             return False
             
-        return self.camera.isOpened()
+        # return self.camera.isOpened() 
+        return self.camera.isReady() # use for jetson xavier
 
 
     def open_connection(self):
         '''Return True if connect successfully, otherwise is False.'''
 
-        self.camera = cv2.VideoCapture(0)
+        # self.camera = cv2.VideoCapture(0)
+
+        # use for jetson xavier
+        self.camera = nano.Camera(camera_type=1, device_id=0, width=640, height=480, fps=15)
         return self.is_available()
 
 
@@ -34,7 +38,7 @@ class CameraControl():
         '''Close CAMERA connection.'''
 
         self.camera.release()
-        cv2.destroyAllWindows()
+        # cv2.destroyAllWindows()
 
         return self.is_available()
 
@@ -45,9 +49,9 @@ class CameraControl():
         if not self.is_available():
             return None
 
-        result, self.frame = self.camera.read()
+        self.frame = self.camera.read()
         
-        if result == False:
+        if self.frame is None:
             return None
 
         # Change frame color
@@ -58,7 +62,7 @@ class CameraControl():
     def get_frame_size(self):
         '''Return (frame width, frame height). Otherwise, return None.'''
 
-        if self.frame == None:
+        if self.frame is None:
             return None
 
         frame_height, frame_width, layers = self.frame.shape

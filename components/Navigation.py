@@ -8,7 +8,7 @@ class Navigation():
     def __init__(self, parent) -> None:
         self.parent = parent
         self.__ui_colour = UIColour()
-        self.logoPath = "./image/TMA_logo.PNG"
+        self.logoPath = "/home/administrator/ldthinh/test/Robot_ver_1.4.6<testing>/delta-robot/image/TMA_logo.PNG"
 
         # create App panel
         self.app = wx.Panel(self.parent)

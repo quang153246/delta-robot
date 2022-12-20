@@ -83,7 +83,7 @@ class Hardware():
         
 
         self.timer = wx.Timer(self.stream_video.GetObject())
-        self.timer.Start(int(1000.0 / 30.0))
+        self.timer.Start(int(1000.0 / 10.0))
         self.stream_video.GetObject().Bind(wx.EVT_TIMER, self.NextFrame)
 
         frame = np.zeros([self.stream_video.frame_height, self.stream_video.frame_width], dtype=int)        
