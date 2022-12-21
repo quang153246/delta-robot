@@ -38,10 +38,11 @@ class SettingNav():
         self.content = wx.Panel(self.wrapper)
         content_layout = wx.BoxSizer(wx.HORIZONTAL)
 
-        self.hardware = Hardware(self.content).GetObject()
+        self.hardware = Hardware(self.content)
+        self.hardware_panel = self.hardware.GetObject()
         self.AI_setting = AISetting(self.content).GetObject()
         self.mission = Mission(self.content).GetObject()
-        self.panels = [self.hardware, self.AI_setting, self.mission]
+        self.panels = [self.hardware_panel, self.AI_setting, self.mission]
 
         
         for panel in self.panels:
@@ -62,18 +63,21 @@ class SettingNav():
         self.hardware_check_button.onSelect(None)
         self.AI_setting_button.onDisable(None)
         self.create_mission_button.onDisable(None)
-        self.Show(self.hardware)
+        self.Show(self.hardware_panel)
+
     def handle_changeState_AI_setting(self, event):
         self.hardware_check_button.onDisable(None)
         self.AI_setting_button.onSelect(None)
         self.create_mission_button.onDisable(None)
         self.Show(self.AI_setting)
+        self.hardware.off_stream()
 
     def handle_changeState_create_misstion(self, event):
         self.hardware_check_button.onDisable(None)
         self.AI_setting_button.onDisable(None)
         self.create_mission_button.onSelect(None)
         self.Show(self.mission)
+        self.hardware.off_stream()
         
 
 
@@ -91,3 +95,7 @@ class SettingNav():
                 p.Hide()
         # Rearrange the window
         self.parent.Layout()
+
+
+    def disable_straming(self):
+        self.hardware.off_stream()

@@ -143,12 +143,14 @@ class Hardware():
 
     def GetObject(self):
         return self.content_panel
+        
     def toggle_camera(self, evt):
         print("Toggle button")
         if(self.camera_logitech.is_available() == False):
             self.camera_connection_button.onDisable(None)
             self.camera_logitech.open_connection()
             # self.camera_status = True
+            print('here')
         else:
             self.camera_connection_button.onSelect(None)
             self.camera_logitech.close_connection()
@@ -172,6 +174,14 @@ class Hardware():
     def OnPaint(self, evt):
         dc = wx.BufferedPaintDC(self.stream_video.GetObject())
         dc.DrawBitmap(self.bmp, 0, 0)
+
+    
+    def off_stream(self):
+        print('off stream')
+        self.camera_connection_button.onSelect(None)
+        self.camera_logitech.close_connection()
+        self.camera_status = self.camera_logitech.is_available()
+        self.camera_connection_status.Set_Label("Camera connection: " + str(self.camera_status))
 
 
     def StartConnectToRobot(self, event):

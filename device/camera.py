@@ -32,6 +32,8 @@ class CameraControl():
 
     def close_connection(self):
         '''Close CAMERA connection.'''
+        if self.camera == None:
+            return True
 
         self.camera.release()
         cv2.destroyAllWindows()

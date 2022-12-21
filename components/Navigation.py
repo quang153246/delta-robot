@@ -47,8 +47,9 @@ class Navigation():
 
         # define tabs
         self.operation = OperationTab(self.content).GetObject()
-        self.setting = SettingTab(self.content).GetObject()
-        self.panels = [self.operation, self.setting]  # tabs array
+        self.setting = SettingTab(self.content)
+        self.setting_panel = self.setting.GetObject()
+        self.panels = [self.operation, self.setting_panel]  # tabs array
 
         # layout for content_panel
         content_layout = wx.BoxSizer(wx.HORIZONTAL)
@@ -72,12 +73,14 @@ class Navigation():
     def operation_button_changeState(self, event):
         self.operation_button.onSelect(None)
         self.settings_button.onDisable(None)
+        self.setting.stop_stream()
         self.Show(self.operation)
+        
 
     def settings_button_changeState(self, event):
         self.settings_button.onSelect(None)
         self.operation_button.onDisable(None)
-        self.Show(self.setting)
+        self.Show(self.setting_panel)
         
 
 

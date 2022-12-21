@@ -17,12 +17,13 @@ class SettingTab():
 
         # Create header mode.
         self.mode_header = CustomHeader(self.body_panel, "Settings", self.__ui_colour.WHITE, self.__ui_colour.BLACK, 20).GetObject()
-        self.tab_header = SettingNav(self.body_panel).GetObject()
-       
+        self.tab_setting_header = SettingNav(self.body_panel)
+        self.tab_setting_panel = self.tab_setting_header.GetObject()
+
         # Gather all components (Header mode, header tab, content)
         body_layout = wx.BoxSizer(wx.VERTICAL)
         body_layout.Add(self.mode_header, 1,  wx.EXPAND|wx.ALL, 0)
-        body_layout.Add(self.tab_header, 15,  wx.EXPAND|wx.ALL, 0)
+        body_layout.Add(self.tab_setting_panel, 15,  wx.EXPAND|wx.ALL, 0)
         
         self.body_panel.SetSizer(body_layout)
         self.body_panel.Layout()
@@ -30,4 +31,7 @@ class SettingTab():
 
     def GetObject(self):
         return self.body_panel
+
+    def stop_stream(self):
+        self.tab_setting_header.disable_straming()
    
